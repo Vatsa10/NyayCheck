@@ -1,65 +1,182 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import {
+  Scale,
+  ChevronRight,
+  ClipboardCheck,
+  MessageSquare,
+  FileText,
+  Home,
+  Building2,
+  ShoppingBag,
+  Briefcase,
+  Heart,
+  ShoppingCart,
+  Shield,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { LanguageToggle } from "@/components/ui/language-toggle";
+import { useStrings, useLanguage } from "@/hooks/use-language";
+import { categories } from "@/lib/legal/categories";
+
+const iconMap: Record<string, React.ElementType> = {
+  Home,
+  Building2,
+  ShoppingBag,
+  Briefcase,
+  Heart,
+  ShoppingCart,
+  Shield,
+};
+
+export default function LandingPage() {
+  const strings = useStrings();
+  const t = useLanguage((s) => s.t);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-background">
+      {/* Nav */}
+      <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Scale className="w-6 h-6 text-primary" />
+            <span className="font-bold text-xl text-primary">
+              {strings.app.name}
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <LanguageToggle />
+            <Link href="/check">
+              <Button size="sm">{strings.landing.hero.cta}</Button>
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="py-16 sm:py-24 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+            <Scale className="w-4 h-4" />
+            {strings.app.tagline}
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
+            {strings.landing.hero.title}
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg text-muted max-w-xl mx-auto mb-8 leading-relaxed">
+            {strings.landing.hero.subtitle}
+          </p>
+          <Link href="/check">
+            <Button size="lg">
+              {strings.landing.hero.cta}
+              <ChevronRight className="w-5 h-5" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* How it Works */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-12">
+            {strings.landing.howItWorks.title}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {[
+              {
+                icon: MessageSquare,
+                step: strings.landing.howItWorks.step1,
+                num: "1",
+              },
+              {
+                icon: ClipboardCheck,
+                step: strings.landing.howItWorks.step2,
+                num: "2",
+              },
+              {
+                icon: FileText,
+                step: strings.landing.howItWorks.step3,
+                num: "3",
+              },
+            ].map(({ icon: Icon, step, num }) => (
+              <div key={num} className="text-center">
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Icon className="w-8 h-8 text-primary" />
+                </div>
+                <div className="text-sm font-bold text-primary mb-2">
+                  {num}
+                </div>
+                <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
+                <p className="text-sm text-muted">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Categories */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-12">
+            {strings.landing.categories.title}
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {categories.map((cat) => {
+              const Icon = iconMap[cat.icon] || Shield;
+              return (
+                <Link key={cat.id} href={`/check/${cat.id}`}>
+                  <Card hover className="h-full">
+                    <CardContent className="flex flex-col items-center text-center gap-2 p-5">
+                      <div
+                        className={`w-12 h-12 rounded-xl ${cat.color} flex items-center justify-center`}
+                      >
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="font-semibold text-sm">
+                        {t(cat.name)}
+                      </h3>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 px-4 bg-primary text-white">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+            {strings.landing.hero.title}
+          </h2>
+          <p className="text-lg opacity-90 mb-8">
+            {strings.landing.hero.subtitle}
+          </p>
+          <Link href="/check">
+            <Button variant="secondary" size="lg">
+              {strings.landing.hero.cta}
+              <ChevronRight className="w-5 h-5" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-4 border-t border-gray-100">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted">
+          <div className="flex items-center gap-2">
+            <Scale className="w-4 h-4" />
+            <span>NyayCheck</span>
+          </div>
+          <p>
+            {new Date().getFullYear()} NyayCheck. Not a substitute for
+            professional legal advice.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </footer>
     </div>
   );
 }

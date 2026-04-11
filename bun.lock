@@ -5,6 +5,8 @@
       "name": "nyaycheck",
       "dependencies": {
         "@react-pdf/renderer": "^4.4.1",
+        "@types/better-sqlite3": "^7.6.13",
+        "better-sqlite3": "^12.8.0",
         "drizzle-orm": "^0.45.2",
         "lucide-react": "^1.8.0",
         "nanoid": "^5.1.7",
@@ -16,6 +18,7 @@
       },
       "devDependencies": {
         "@tailwindcss/postcss": "^4",
+        "@types/bun": "^1.3.12",
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
@@ -316,6 +319,8 @@
 
     "@types/better-sqlite3": ["@types/better-sqlite3@7.6.13", "https://registry.npmmirror.com/@types/better-sqlite3/-/better-sqlite3-7.6.13.tgz", { "dependencies": { "@types/node": "*" } }, "sha512-NMv9ASNARoKksWtsq/SHakpYAYnhBrQgGD8zkLYk/jaK8jUGn08CfEdTRgYhMypUQAfzSP8W6gNLe0q19/t4VA=="],
 
+    "@types/bun": ["@types/bun@1.3.12", "https://registry.npmmirror.com/@types/bun/-/bun-1.3.12.tgz", { "dependencies": { "bun-types": "1.3.12" } }, "sha512-DBv81elK+/VSwXHDlnH3Qduw+KxkTIWi7TXkAeh24zpi5l0B2kUg9Ga3tb4nJaPcOFswflgi/yAvMVBPrxMB+A=="],
+
     "@types/estree": ["@types/estree@1.0.8", "https://registry.npmmirror.com/@types/estree/-/estree-1.0.8.tgz", {}, "sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w=="],
 
     "@types/json-schema": ["@types/json-schema@7.0.15", "https://registry.npmmirror.com/@types/json-schema/-/json-schema-7.0.15.tgz", {}, "sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA=="],
@@ -453,6 +458,8 @@
     "buffer": ["buffer@5.7.1", "https://registry.npmmirror.com/buffer/-/buffer-5.7.1.tgz", { "dependencies": { "base64-js": "^1.3.1", "ieee754": "^1.1.13" } }, "sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ=="],
 
     "buffer-from": ["buffer-from@1.1.2", "https://registry.npmmirror.com/buffer-from/-/buffer-from-1.1.2.tgz", {}, "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ=="],
+
+    "bun-types": ["bun-types@1.3.12", "https://registry.npmmirror.com/bun-types/-/bun-types-1.3.12.tgz", { "dependencies": { "@types/node": "*" } }, "sha512-HqOLj5PoFajAQciOMRiIZGNoKxDJSr6qigAttOX40vJuSp6DN/CxWp9s3C1Xwm4oH7ybueITwiaOcWXoYVoRkA=="],
 
     "call-bind": ["call-bind@1.0.9", "https://registry.npmmirror.com/call-bind/-/call-bind-1.0.9.tgz", { "dependencies": { "call-bind-apply-helpers": "^1.0.2", "es-define-property": "^1.0.1", "get-intrinsic": "^1.3.0", "set-function-length": "^1.2.2" } }, "sha512-a/hy+pNsFUTR+Iz8TCJvXudKVLAnz/DyeSUo10I5yvFDQJBFU2s9uqQpoSrJlroHUKoKqzg+epxyP9lqFdzfBQ=="],
 
