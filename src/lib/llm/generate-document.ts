@@ -1,4 +1,4 @@
-import { getOpenAI, getModel } from "./client";
+import { getOpenAI, getModel, canMakeLLMRequest, recordLLMRequest } from "./client";
 import { buildDocumentPrompt } from "./prompts";
 import type { ChecklistItem, Language } from "@/types";
 
@@ -15,6 +15,11 @@ export async function generateDocument(params: {
   checklist: ChecklistItem[];
   language: Language;
 }): Promise<GeneratedDoc | null> {
+  if (!canMakeLLMRequest()) {
+    console.log("LLM rate limit reached, skipping document generation");
+    return null;
+  }
+
   const prompt = buildDocumentPrompt(
     params.documentType,
     params.category,
@@ -23,30 +28,31 @@ export async function generateDocument(params: {
     params.language
   );
 
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      const response = await getOpenAI().chat.completions.create({
-        model: getModel(),
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.3,
-        max_tokens: 3000,
-      });
+  try {
+    recordLLMRequest();
+    const response = await getOpenAI().chat.completions.create({
+      model: getModel(),
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.3,
+      max_tokens: 1500, // Documents need more room but capped at 1500
+    });
 
-      const content = response.choices[0]?.message?.content;
-      if (!content) return null;
+    const content = response.choices[0]?.message?.content;
+    if (!content) return null;
 
-      const jsonStr = content.replace(/```json?\n?/g, "").replace(/```/g, "").trim();
-      const doc: GeneratedDoc = JSON.parse(jsonStr);
-      return doc;
-    } catch (error: unknown) {
-      const statusCode = (error as { status?: number })?.status;
-      if (statusCode === 429 && attempt < 2) {
-        await new Promise((r) => setTimeout(r, (attempt + 1) * 2500));
-        continue;
-      }
+    const jsonStr = content
+      .replace(/```json?\n?/g, "")
+      .replace(/```/g, "")
+      .trim();
+    const doc: GeneratedDoc = JSON.parse(jsonStr);
+    return doc;
+  } catch (error: unknown) {
+    const statusCode = (error as { status?: number })?.status;
+    if (statusCode === 429) {
+      console.log("OpenRouter 429 — free tier rate limited");
+    } else {
       console.error("Document generation failed:", error);
-      return null;
     }
+    return null;
   }
-  return null;
 }

@@ -5,11 +5,18 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
   hover?: boolean;
 }
 
-export function Card({ children, hover = false, className = "", ...props }: CardProps) {
+export function Card({
+  children,
+  hover = false,
+  className = "",
+  ...props
+}: CardProps) {
   return (
     <div
-      className={`rounded-2xl bg-card-bg border border-gray-100 shadow-sm ${
-        hover ? "transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 cursor-pointer" : ""
+      className={`rounded-xl bg-white border border-gray-100 ${
+        hover
+          ? "transition-[transform,box-shadow] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:shadow-md hover:shadow-gray-200/50 hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
+          : ""
       } ${className}`}
       {...props}
     >
@@ -18,10 +25,22 @@ export function Card({ children, hover = false, className = "", ...props }: Card
   );
 }
 
-export function CardHeader({ children, className = "" }: { children: ReactNode; className?: string }) {
+export function CardHeader({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return <div className={`p-5 pb-0 ${className}`}>{children}</div>;
 }
 
-export function CardContent({ children, className = "" }: { children: ReactNode; className?: string }) {
+export function CardContent({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return <div className={`p-5 ${className}`}>{children}</div>;
 }
