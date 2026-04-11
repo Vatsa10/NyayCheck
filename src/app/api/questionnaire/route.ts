@@ -7,6 +7,7 @@ import { getCategoryById } from "@/lib/legal/categories";
 import { resolveVisibleQuestions } from "@/lib/engine/flow-resolver";
 import { evaluateScore } from "@/lib/engine/evaluator";
 import { mapFlagsToChecklist } from "@/lib/engine/checklist-mapper";
+import { generateReportEmbedding } from "@/lib/engine/embeddings";
 import type { Language, RiskLevel } from "@/types";
 
 export async function GET(request: NextRequest) {
@@ -114,6 +115,14 @@ export async function POST(request: NextRequest) {
       completed: true,
     });
 
+    // Generate embedding for vector similarity search
+    const embedding = generateReportEmbedding(
+      categoryId,
+      answers,
+      score,
+      riskLevel
+    );
+
     // Save report
     const reportId = nanoid(10);
     await db.insert(reports).values({
@@ -126,6 +135,7 @@ export async function POST(request: NextRequest) {
       checklist: JSON.stringify(checklist),
       summary: JSON.stringify({ en: summaryEn, hi: summaryHi }),
       language: language as Language,
+      embedding: JSON.stringify(embedding),
     });
 
     return NextResponse.json({

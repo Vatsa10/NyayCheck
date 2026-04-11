@@ -13,5 +13,5 @@ export function getOpenAI(): OpenAI {
 }
 
 export function getModel(): string {
-  return process.env.MODEL || "google/gemma-4-31b-it:free";
+  return process.env.MODEL || "minimax/minimax-m2.5:free";
 }

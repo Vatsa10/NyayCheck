@@ -1,4 +1,9 @@
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
+import {
+  sqliteTable,
+  text,
+  integer,
+  real,
+} from "drizzle-orm/sqlite-core";
 
 export const sessions = sqliteTable("sessions", {
   id: text("id").primaryKey(),
@@ -22,6 +27,7 @@ export const reports = sqliteTable("reports", {
   summary: text("summary").notNull(),
   language: text("language").notNull(),
   aiInsights: text("ai_insights"), // JSON: AI-generated personalized insights
+  embedding: text("embedding"), // JSON float array for vector search (computed from answers)
 });
 
 export const documents = sqliteTable("documents", {
@@ -36,4 +42,18 @@ export const documents = sqliteTable("documents", {
   contentText: text("content_text").notNull(),
   language: text("language").notNull(),
   pdfGenerated: integer("pdf_generated", { mode: "boolean" }).default(false),
+});
+
+// ── Legal Knowledge Base for RAG ──
+// Pre-populated with Indian legal knowledge chunks, each with a vector embedding
+export const legalKnowledge = sqliteTable("legal_knowledge", {
+  id: text("id").primaryKey(),
+  category: text("category").notNull(), // rent, property, consumer, etc.
+  title: text("title").notNull(),
+  titleHi: text("title_hi").notNull(),
+  content: text("content").notNull(), // Detailed explanation in English
+  contentHi: text("content_hi").notNull(), // Hindi version
+  applicableActs: text("applicable_acts").notNull(), // Comma-separated acts
+  keywords: text("keywords").notNull(), // Comma-separated search keywords
+  embedding: text("embedding"), // JSON float array for vector similarity search
 });
