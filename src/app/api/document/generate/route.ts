@@ -59,8 +59,8 @@ export async function POST(request: NextRequest) {
 
     if (!doc) {
       return NextResponse.json(
-        { error: "Failed to generate document" },
-        { status: 500 }
+        { error: "AI is currently busy. Please try again in a minute." },
+        { status: 503 }
       );
     }
 
