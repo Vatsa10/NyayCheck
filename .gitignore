@@ -50,3 +50,5 @@ AGENTS.md
 /data/*.db-shm
 meta/
 *.sql
+.agents
+skills-lock.json
