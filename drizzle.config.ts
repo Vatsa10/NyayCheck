@@ -3,8 +3,9 @@ import { defineConfig } from "drizzle-kit";
 export default defineConfig({
   schema: "./src/lib/db/schema.ts",
   out: "./src/lib/db/migrations",
-  dialect: "sqlite",
+  dialect: "turso",
   dbCredentials: {
-    url: "./data/nyaycheck.db",
+    url: process.env.TURSO_URL!,
+    authToken: process.env.TURSO_TOKEN,
   },
 });

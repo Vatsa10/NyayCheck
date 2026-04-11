@@ -21,6 +21,7 @@ export const reports = sqliteTable("reports", {
   checklist: text("checklist").notNull(), // JSON stringified ChecklistItem[]
   summary: text("summary").notNull(),
   language: text("language").notNull(),
+  aiInsights: text("ai_insights"), // JSON: AI-generated personalized insights
 });
 
 export const documents = sqliteTable("documents", {

@@ -18,7 +18,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Missing reportId" }, { status: 400 });
     }
 
-    const [report] = db.select().from(reports).where(eq(reports.id, reportId)).limit(1).all();
+    const rows = await db
+      .select()
+      .from(reports)
+      .where(eq(reports.id, reportId))
+      .limit(1);
+    const report = rows[0];
 
     if (!report) {
       return NextResponse.json({ error: "Report not found" }, { status: 404 });
@@ -34,7 +39,10 @@ export async function GET(request: NextRequest) {
     let summaryText = "";
     try {
       const summaryObj = JSON.parse(report.summary as string);
-      summaryText = summaryObj[report.language as string] || summaryObj.en || report.summary;
+      summaryText =
+        summaryObj[report.language as string] ||
+        summaryObj.en ||
+        report.summary;
     } catch {
       summaryText = report.summary as string;
     }
@@ -49,7 +57,10 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Report fetch error:", error);
-    return NextResponse.json({ error: "Failed to fetch report" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch report" },
+      { status: 500 }
+    );
   }
 }
 
@@ -78,24 +89,34 @@ export async function POST(request: NextRequest) {
     const checklist = mapFlagsToChecklist(activeFlags);
 
     // Generate summary
-    const summaryEn = generateSummary(score, riskLevel as RiskLevel, checklist.length, categoryId);
-    const summaryHi = generateSummaryHi(score, riskLevel as RiskLevel, checklist.length, categoryId);
+    const summaryEn = generateSummary(
+      score,
+      riskLevel as RiskLevel,
+      checklist.length,
+      categoryId
+    );
+    const summaryHi = generateSummaryHi(
+      score,
+      riskLevel as RiskLevel,
+      checklist.length,
+      categoryId
+    );
 
     // Save session
     const sessionId = nanoid();
     const now = new Date();
-    db.insert(sessions).values({
+    await db.insert(sessions).values({
       id: sessionId,
       createdAt: now,
       language: language as Language,
       category: categoryId,
       answers: JSON.stringify(answers),
       completed: true,
-    }).run();
+    });
 
     // Save report
     const reportId = nanoid(10);
-    db.insert(reports).values({
+    await db.insert(reports).values({
       id: reportId,
       sessionId,
       createdAt: now,
@@ -105,7 +126,7 @@ export async function POST(request: NextRequest) {
       checklist: JSON.stringify(checklist),
       summary: JSON.stringify({ en: summaryEn, hi: summaryHi }),
       language: language as Language,
-    }).run();
+    });
 
     return NextResponse.json({
       reportId,
