@@ -47,6 +47,14 @@ export default function LandingPage() {
             </span>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              href="/ask"
+              className="text-sm font-medium text-muted hover:text-primary transition-colors hidden sm:block"
+            >
+              {strings.landing.hero.cta === "Start Free Check"
+                ? "Ask a Question"
+                : "सवाल पूछें"}
+            </Link>
             <LanguageToggle />
             <Link href="/check">
               <Button size="sm">{strings.landing.hero.cta}</Button>
