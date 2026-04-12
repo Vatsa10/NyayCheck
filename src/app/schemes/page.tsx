@@ -3,7 +3,7 @@
 import { useState, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Scale, ArrowLeft, Landmark, Share2 } from "lucide-react";
+import { Scale, ArrowLeft, Landmark, Share2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
 import { SchemeProfileForm } from "@/components/schemes/scheme-profile-form";
@@ -151,8 +151,32 @@ function SchemesContent() {
               </div>
             )}
 
+            {/* myScheme.gov.in link */}
+            <div className="mt-6 p-4 bg-primary-50 rounded-xl border border-primary-100">
+              <p className="text-sm font-medium mb-1">
+                {language === "hi"
+                  ? "और भी 700+ सरकारी योजनाएं खोजें"
+                  : "Explore 700+ more government schemes"}
+              </p>
+              <p className="text-xs text-muted mb-3">
+                {language === "hi"
+                  ? "भारत सरकार का आधिकारिक योजना खोजक पोर्टल"
+                  : "Official Government of India scheme finder portal"}
+              </p>
+              <a
+                href="https://www.myscheme.gov.in/find-scheme"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline" size="sm" className="w-full">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  myScheme.gov.in
+                </Button>
+              </a>
+            </div>
+
             {/* CTA */}
-            <div className="mt-8 text-center">
+            <div className="mt-6 text-center">
               <Link href="/check">
                 <Button variant="ghost" size="sm">
                   {language === "hi"
