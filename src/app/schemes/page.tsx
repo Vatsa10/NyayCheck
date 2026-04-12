@@ -12,6 +12,7 @@ import { useStrings, useLanguage } from "@/hooks/use-language";
 import { useSchemeProfile } from "@/hooks/use-scheme-profile";
 import { matchSchemes } from "@/lib/engine/scheme-matcher";
 import { governmentSchemes } from "@/lib/legal/schemes";
+import { MySchemeCategoryGrid } from "@/components/schemes/myscheme-categories";
 import { getWhatsAppShareUrl } from "@/lib/utils/share";
 import type { RiskLevel } from "@/types";
 
@@ -150,6 +151,11 @@ function SchemesContent() {
                 </p>
               </div>
             )}
+
+            {/* Browse all categories on myScheme */}
+            <div className="mt-8">
+              <MySchemeCategoryGrid />
+            </div>
 
             {/* myScheme.gov.in link */}
             <div className="mt-6 p-4 bg-primary-50 rounded-xl border border-primary-100">
