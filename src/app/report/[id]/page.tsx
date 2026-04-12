@@ -19,6 +19,7 @@ import { useLanguage, useStrings } from "@/hooks/use-language";
 import { getWhatsAppShareUrl } from "@/lib/utils/share";
 import { AIInsights } from "@/components/report/ai-insights";
 import { SimilarCases } from "@/components/report/similar-cases";
+import { MatchedSchemes } from "@/components/report/matched-schemes";
 import type { ChecklistItem, RiskLevel, BilingualText } from "@/types";
 
 interface ReportData {
@@ -182,6 +183,15 @@ export default function ReportPage({
 
         {/* Similar Cases */}
         <SimilarCases reportId={id} />
+
+        {/* Government Schemes */}
+        {report.checklist.length > 0 && (
+          <MatchedSchemes
+            category={report.category || ""}
+            riskLevel={report.riskLevel}
+            activeFlags={report.checklist.map((c: ChecklistItem) => c.id)}
+          />
+        )}
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3 pt-4">

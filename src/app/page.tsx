@@ -7,6 +7,7 @@ import {
   ClipboardCheck,
   MessageSquare,
   FileText,
+  Landmark,
   Home,
   Building2,
   ShoppingBag,
@@ -17,6 +18,7 @@ import {
   Search,
   Sparkles,
   Users,
+  Gavel,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
@@ -56,6 +58,20 @@ export default function LandingPage() {
             >
               <Search className="w-3.5 h-3.5" />
               {language === "hi" ? "सवाल पूछें" : "Ask"}
+            </Link>
+            <Link
+              href="/schemes"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200"
+            >
+              <Landmark className="w-3.5 h-3.5" />
+              {language === "hi" ? "योजनाएं" : "Schemes"}
+            </Link>
+            <Link
+              href="/cases"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200"
+            >
+              <Gavel className="w-3.5 h-3.5" />
+              {language === "hi" ? "मुकदमे" : "Cases"}
             </Link>
             <LanguageToggle />
             <Link href="/check">
