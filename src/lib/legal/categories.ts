@@ -6,6 +6,8 @@ import { employmentQuestions } from "./questions/employment";
 import { familyQuestions } from "./questions/family";
 import { ecommerceQuestions } from "./questions/ecommerce";
 import { cyberFraudQuestions } from "./questions/cyber-fraud";
+import { chequeBounceQuestions } from "./questions/cheque-bounce";
+import { policeFirQuestions } from "./questions/police-fir";
 
 export const categories: CategoryDefinition[] = [
   {
@@ -121,6 +123,36 @@ export const categories: CategoryDefinition[] = [
       "Payment and Settlement Systems Act, 2007",
     ],
     questions: cyberFraudQuestions,
+  },
+  {
+    id: "cheque-bounce",
+    name: { en: "Cheque Bounce", hi: "चेक बाउंस" },
+    description: {
+      en: "Bounced cheque, S.138 notice, payment recovery",
+      hi: "बाउंस चेक, धारा 138 नोटिस, भुगतान वसूली",
+    },
+    icon: "Banknote",
+    color: "bg-orange-500",
+    relevantActs: [
+      "Negotiable Instruments Act, 1881 Section 138",
+    ],
+    questions: chequeBounceQuestions,
+  },
+  {
+    id: "police-fir",
+    name: { en: "Police & FIR Issues", hi: "पुलिस और FIR समस्या" },
+    description: {
+      en: "FIR refused, police inaction, false FIR, harassment",
+      hi: "FIR से इनकार, पुलिस निष्क्रियता, झूठी FIR, उत्पीड़न",
+    },
+    icon: "Siren",
+    color: "bg-slate-600",
+    relevantActs: [
+      "CrPC Section 154",
+      "BNSS Section 173",
+      "IPC Section 166A",
+    ],
+    questions: policeFirQuestions,
   },
 ];
 

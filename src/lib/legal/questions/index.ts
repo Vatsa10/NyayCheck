@@ -5,3 +5,5 @@ export { employmentQuestions } from "./employment";
 export { familyQuestions } from "./family";
 export { ecommerceQuestions } from "./ecommerce";
 export { cyberFraudQuestions } from "./cyber-fraud";
+export { chequeBounceQuestions } from "./cheque-bounce";
+export { policeFirQuestions } from "./police-fir";

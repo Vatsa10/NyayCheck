@@ -9,6 +9,8 @@ import {
   Heart,
   ShoppingCart,
   Shield,
+  Banknote,
+  Siren,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { categories } from "@/lib/legal/categories";
