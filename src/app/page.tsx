@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import {
   Scale,
@@ -25,6 +26,8 @@ import {
   MapPin,
   UserCheck,
   ChevronDown,
+  Menu,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
@@ -45,6 +48,20 @@ export default function LandingPage() {
   const strings = useStrings();
   const t = useLanguage((s) => s.t);
   const language = useLanguage((s) => s.language);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { href: "/check", icon: ClipboardCheck, label: language === "hi" ? "कानूनी जांच" : "Legal Check", desc: language === "hi" ? "7 श्रेणियों में जांच" : "Check across 7 categories", primary: true },
+    { href: "/ask", icon: Search, label: language === "hi" ? "सवाल पूछें" : "Ask a Question", desc: language === "hi" ? "AI कानूनी Q&A" : "AI legal Q&A" },
+    { href: "/helplines", icon: Phone, label: language === "hi" ? "हेल्पलाइन" : "Helplines", desc: language === "hi" ? "112, 181, 1930" : "112, 181, 1930" },
+    { href: "/rights", icon: ShieldCheck, label: language === "hi" ? "अधिकार कार्ड" : "Know Your Rights", desc: language === "hi" ? "शेयर करने योग्य कार्ड" : "Shareable cards" },
+    { href: "/guides", icon: BookOpen, label: language === "hi" ? "प्रक्रिया गाइड" : "Legal Guides", desc: language === "hi" ? "FIR, RTI, शिकायत" : "FIR, RTI, complaint" },
+    { href: "/templates", icon: FileText, label: language === "hi" ? "टेम्पलेट" : "Templates", desc: language === "hi" ? "किराया, नोटिस, RTI" : "Rent, notice, RTI" },
+    { href: "/schemes", icon: Landmark, label: language === "hi" ? "सरकारी योजनाएं" : "Gov Schemes", desc: language === "hi" ? "5,000+ योजनाएं" : "5,000+ schemes" },
+    { href: "/lawyers", icon: UserCheck, label: language === "hi" ? "वकील खोजें" : "Find a Lawyer", desc: language === "hi" ? "वेब खोज से" : "From web search" },
+    { href: "/cases", icon: Gavel, label: language === "hi" ? "केस ट्रैकर" : "Case Tracker", desc: language === "hi" ? "सुनवाई ट्रैक करें" : "Track hearings" },
+    { href: "/nearby", icon: MapPin, label: language === "hi" ? "नज़दीकी सहायता" : "Nearby Help", desc: language === "hi" ? "DLSA, पुलिस, कोर्ट" : "DLSA, police, court" },
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -57,45 +74,40 @@ export default function LandingPage() {
               NyayCheck
             </span>
           </Link>
-          <div className="flex items-center gap-2">
+
+          {/* Desktop nav */}
+          <div className="hidden sm:flex items-center gap-2">
             <Link
               href="/ask"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200"
             >
               <Search className="w-3.5 h-3.5" />
               {language === "hi" ? "सवाल पूछें" : "Ask"}
             </Link>
 
-            {/* Tools dropdown */}
-            <div className="hidden sm:block relative group">
+            {/* Tools dropdown — desktop only */}
+            <div className="relative group">
               <button className="flex items-center gap-1 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200">
                 {language === "hi" ? "उपकरण" : "Tools"}
                 <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" />
               </button>
               <div className="absolute right-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-200">
                 <div className="w-56 bg-white rounded-xl border border-gray-100 shadow-lg shadow-gray-200/50 py-1.5 overflow-hidden">
-                  {[
-                    { href: "/helplines", icon: Phone, label: language === "hi" ? "हेल्पलाइन" : "Helplines", desc: language === "hi" ? "112, 181, 1930" : "112, 181, 1930" },
-                    { href: "/rights", icon: ShieldCheck, label: language === "hi" ? "अधिकार कार्ड" : "Know Your Rights", desc: language === "hi" ? "शेयर करें" : "Shareable cards" },
-                    { href: "/guides", icon: BookOpen, label: language === "hi" ? "प्रक्रिया गाइड" : "Legal Guides", desc: language === "hi" ? "FIR, RTI, शिकायत" : "FIR, RTI, complaint" },
-                    { href: "/templates", icon: FileText, label: language === "hi" ? "टेम्पलेट" : "Templates", desc: language === "hi" ? "किराया, नोटिस, RTI" : "Rent, notice, RTI" },
-                    { href: "/schemes", icon: Landmark, label: language === "hi" ? "सरकारी योजनाएं" : "Gov Schemes", desc: language === "hi" ? "5,000+ योजनाएं" : "5,000+ schemes" },
-                    { href: "/lawyers", icon: UserCheck, label: language === "hi" ? "वकील खोजें" : "Find a Lawyer", desc: language === "hi" ? "वेब खोज से" : "From web search" },
-                    { href: "/cases", icon: Gavel, label: language === "hi" ? "केस ट्रैकर" : "Case Tracker", desc: language === "hi" ? "सुनवाई ट्रैक करें" : "Track hearings" },
-                    { href: "/nearby", icon: MapPin, label: language === "hi" ? "नज़दीकी सहायता" : "Nearby Help", desc: language === "hi" ? "DLSA, पुलिस, कोर्ट" : "DLSA, police, court" },
-                  ].map(({ href, icon: Icon, label, desc }) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      className="flex items-center gap-3 px-3.5 py-2 hover:bg-gray-50 transition-colors duration-150"
-                    >
-                      <Icon className="w-4 h-4 text-muted flex-shrink-0" />
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium leading-tight">{label}</p>
-                        <p className="text-[11px] text-muted leading-tight">{desc}</p>
-                      </div>
-                    </Link>
-                  ))}
+                  {navItems
+                    .filter((item) => !item.primary && item.href !== "/ask")
+                    .map(({ href, icon: Icon, label, desc }) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        className="flex items-center gap-3 px-3.5 py-2 hover:bg-gray-50 transition-colors duration-150"
+                      >
+                        <Icon className="w-4 h-4 text-muted flex-shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium leading-tight">{label}</p>
+                          <p className="text-[11px] text-muted leading-tight">{desc}</p>
+                        </div>
+                      </Link>
+                    ))}
                 </div>
               </div>
             </div>
@@ -107,8 +119,81 @@ export default function LandingPage() {
               </Button>
             </Link>
           </div>
+
+          {/* Mobile: language + hamburger */}
+          <div className="flex sm:hidden items-center gap-2">
+            <LanguageToggle />
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="p-1.5 rounded-lg hover:bg-gray-50 transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5 text-foreground" />
+            </button>
+          </div>
         </div>
       </header>
+
+      {/* ── Mobile full-screen menu ── */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] bg-white flex flex-col">
+          {/* Mobile menu header */}
+          <div className="flex items-center justify-between px-5 h-14 border-b border-gray-100">
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2 text-muted hover:text-foreground transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+              <span className="text-sm font-medium">
+                {language === "hi" ? "बंद करें" : "Close"}
+              </span>
+            </button>
+            <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+              <Scale className="w-5 h-5 text-primary" />
+              <span className="font-semibold text-[15px] tracking-tight">NyayCheck</span>
+            </Link>
+          </div>
+
+          {/* Mobile menu items */}
+          <div className="flex-1 overflow-y-auto px-5 py-4">
+            <div className="space-y-1">
+              {navItems.map(({ href, icon: Icon, label, desc, primary }, i) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3.5 px-3 py-3 rounded-xl transition-colors duration-150 active:scale-[0.98] ${
+                    primary
+                      ? "bg-primary text-white"
+                      : "hover:bg-gray-50"
+                  }`}
+                  style={{ animationDelay: `${i * 40}ms` }}
+                >
+                  <Icon className={`w-5 h-5 flex-shrink-0 ${primary ? "text-white" : "text-muted"}`} />
+                  <div className="min-w-0">
+                    <p className={`text-[15px] font-medium leading-tight ${primary ? "text-white" : ""}`}>
+                      {label}
+                    </p>
+                    <p className={`text-xs leading-tight mt-0.5 ${primary ? "text-white/70" : "text-muted"}`}>
+                      {desc}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile menu footer */}
+          <div className="px-5 py-4 border-t border-gray-100">
+            <p className="text-xs text-center text-muted">
+              {language === "hi"
+                ? "पेशेवर कानूनी सलाह का विकल्प नहीं है।"
+                : "Not a substitute for professional legal advice."}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ── Hero ── */}
       <section className="pt-32 pb-20 sm:pt-40 sm:pb-28 px-5">
