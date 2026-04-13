@@ -44,6 +44,19 @@ export const documents = sqliteTable("documents", {
   pdfGenerated: integer("pdf_generated", { mode: "boolean" }).default(false),
 });
 
+// ── Conversation Memory for Q&A follow-ups ──
+// Stores Q&A turns so follow-up questions have context + vector for similarity
+export const conversations = sqliteTable("conversations", {
+  id: text("id").primaryKey(),
+  sessionKey: text("session_key").notNull(), // client-generated session ID (per browser tab)
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  query: text("query").notNull(),
+  answer: text("answer").notNull(),
+  category: text("category"), // detected topic category
+  language: text("language").notNull().default("en"),
+  embedding: text("embedding"), // JSON float array for vector similarity across sessions
+});
+
 // ── Legal Knowledge Base for RAG ──
 // Pre-populated with Indian legal knowledge chunks, each with a vector embedding
 export const legalKnowledge = sqliteTable("legal_knowledge", {

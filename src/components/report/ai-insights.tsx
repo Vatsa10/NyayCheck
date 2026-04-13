@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Sparkles, ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
+import { Sparkles, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { AudioButton } from "@/components/ui/audio-button";
 import { useLanguage } from "@/hooks/use-language";
 import type { AIInsight } from "@/lib/llm/generate-insights";
@@ -15,54 +16,111 @@ interface AIInsightsProps {
 export function AIInsights({ reportId }: AIInsightsProps) {
   const [insights, setInsights] = useState<AIInsight[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [fetched, setFetched] = useState(false);
   const [expanded, setExpanded] = useState<number | null>(null);
   const language = useLanguage((s) => s.language);
 
-  useEffect(() => {
+  async function fetchInsights() {
     setLoading(true);
-    fetch("/api/insights", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ reportId }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insights) setInsights(data.insights);
-        else setError(true);
-      })
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, [reportId]);
+    setFetched(true);
 
-  if (loading) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10_000); // 10s timeout
+
+    try {
+      const res = await fetch("/api/insights", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reportId }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      const data = await res.json();
+      if (data.insights?.length) setInsights(data.insights);
+    } catch {
+      // Timeout or network error — silently fail
+    } finally {
+      clearTimeout(timeout);
+      setLoading(false);
+    }
+  }
+
+  // Not yet fetched — show the "Get Insights" button
+  if (!fetched) {
     return (
-      <Card>
-        <CardContent className="py-6">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-purple-600 animate-pulse" />
+      <button
+        onClick={fetchInsights}
+        className="w-full text-left"
+      >
+        <Card hover>
+          <CardContent className="py-4 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0">
+              <Sparkles className="w-5 h-5 text-purple-600" />
             </div>
-            <div>
+            <div className="flex-1">
               <p className="font-semibold text-sm">
                 {language === "hi"
-                  ? "AI अंतर्दृष्टि जनरेट हो रही है..."
-                  : "Generating AI insights..."}
+                  ? "AI अंतर्दृष्टि प्राप्त करें"
+                  : "Get AI Insights"}
               </p>
               <p className="text-xs text-muted">
                 {language === "hi"
-                  ? "आपकी स्थिति का विश्लेषण किया जा रहा है"
-                  : "Analyzing your specific situation"}
+                  ? "टैप करें — AI आपकी स्थिति का विश्लेषण करेगा"
+                  : "Tap to get personalized analysis of your situation"}
               </p>
             </div>
+            <Sparkles className="w-4 h-4 text-purple-400 flex-shrink-0" />
+          </CardContent>
+        </Card>
+      </button>
+    );
+  }
+
+  // Loading state
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="py-5 flex items-center gap-3">
+          <Loader2 className="w-5 h-5 text-purple-600 animate-spin flex-shrink-0" />
+          <div>
+            <p className="font-semibold text-sm">
+              {language === "hi"
+                ? "AI विश्लेषण कर रहा है..."
+                : "AI is analyzing..."}
+            </p>
+            <p className="text-xs text-muted">
+              {language === "hi" ? "10 सेकंड तक" : "Up to 10 seconds"}
+            </p>
           </div>
         </CardContent>
       </Card>
     );
   }
 
-  if (error || insights.length === 0) return null;
+  // No results
+  if (insights.length === 0) {
+    return (
+      <Card>
+        <CardContent className="py-4 text-center">
+          <p className="text-sm text-muted">
+            {language === "hi"
+              ? "AI अंतर्दृष्टि अभी उपलब्ध नहीं है। बाद में कोशिश करें।"
+              : "AI insights not available right now. Try again later."}
+          </p>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => { setFetched(false); setInsights([]); }}
+            className="mt-2"
+          >
+            {language === "hi" ? "दोबारा कोशिश करें" : "Try Again"}
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
 
+  // Show results
   return (
     <div>
       <div className="flex items-center gap-2 mb-4">

@@ -19,6 +19,10 @@ import {
   Sparkles,
   Users,
   Gavel,
+  Phone,
+  ShieldCheck,
+  BookOpen,
+  MapPin,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
@@ -276,6 +280,85 @@ export default function LandingPage() {
                   {desc}
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Legal Tools ── */}
+      <section className="py-20 px-5">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold tracking-tight text-center animate-fade-up delay-0">
+            {language === "hi" ? "कानूनी उपकरण" : "Legal Tools"}
+          </h2>
+          <p className="mt-2 text-muted text-center text-sm animate-fade-up delay-1">
+            {language === "hi"
+              ? "आपकी रोज़मर्रा की कानूनी ज़रूरतों के लिए"
+              : "For your everyday legal needs"}
+          </p>
+
+          <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/helplines",
+                icon: Phone,
+                title: language === "hi" ? "हेल्पलाइन" : "Helplines",
+                desc: language === "hi" ? "112, 181, 1930 — एक टैप में कॉल" : "112, 181, 1930 — one tap to call",
+                color: "bg-red-500",
+              },
+              {
+                href: "/rights",
+                icon: ShieldCheck,
+                title: language === "hi" ? "अपने अधिकार जानें" : "Know Your Rights",
+                desc: language === "hi" ? "शेयर करने योग्य अधिकार कार्ड" : "Shareable rights cards",
+                color: "bg-emerald-500",
+              },
+              {
+                href: "/guides",
+                icon: BookOpen,
+                title: language === "hi" ? "प्रक्रिया गाइड" : "Procedure Guides",
+                desc: language === "hi" ? "FIR, RTI, शिकायत — चरणबद्ध" : "FIR, RTI, complaint — step by step",
+                color: "bg-indigo-500",
+              },
+              {
+                href: "/templates",
+                icon: FileText,
+                title: language === "hi" ? "दस्तावेज़ टेम्पलेट" : "Templates",
+                desc: language === "hi" ? "किराया अनुबंध, नोटिस, RTI" : "Rent agreement, notice, RTI",
+                color: "bg-amber-500",
+              },
+              {
+                href: "/schemes",
+                icon: Landmark,
+                title: language === "hi" ? "सरकारी योजनाएं" : "Gov Schemes",
+                desc: language === "hi" ? "5,000+ योजनाएं खोजें" : "Find 5,000+ schemes",
+                color: "bg-cyan-500",
+              },
+              {
+                href: "/nearby",
+                icon: MapPin,
+                title: language === "hi" ? "नज़दीकी सहायता" : "Nearby Help",
+                desc: language === "hi" ? "DLSA, पुलिस, कोर्ट खोजें" : "Find DLSA, police, courts",
+                color: "bg-violet-500",
+              },
+            ].map(({ href, icon: Icon, title, desc, color }, i) => (
+              <Link
+                key={href}
+                href={href}
+                className={`group animate-scale-in delay-${Math.min(i, 7)}`}
+              >
+                <div className="flex flex-col gap-2.5 p-4 rounded-xl border border-gray-100 bg-white transition-[transform,box-shadow,border-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:shadow-md hover:shadow-gray-200/60 hover:-translate-y-0.5 hover:border-gray-200 active:scale-[0.97] h-full">
+                  <div
+                    className={`w-9 h-9 rounded-lg ${color} flex items-center justify-center transition-transform duration-200 group-hover:scale-110`}
+                  >
+                    <Icon className="w-4.5 h-4.5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-sm">{title}</h3>
+                    <p className="text-xs text-muted mt-0.5">{desc}</p>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
