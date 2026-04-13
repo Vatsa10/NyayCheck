@@ -11,6 +11,9 @@ import {
   Shield,
   Banknote,
   Siren,
+  Car,
+  UserRound,
+  HandHelping,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { categories } from "@/lib/legal/categories";
@@ -27,6 +30,9 @@ const iconMap: Record<string, React.ElementType> = {
   Shield,
   Banknote,
   Siren,
+  Car,
+  UserRound,
+  HandHelping,
 };
 
 function CategoryCard({ category }: { category: CategoryDefinition }) {

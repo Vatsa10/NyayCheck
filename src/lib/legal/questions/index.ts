@@ -7,3 +7,6 @@ export { ecommerceQuestions } from "./ecommerce";
 export { cyberFraudQuestions } from "./cyber-fraud";
 export { chequeBounceQuestions } from "./cheque-bounce";
 export { policeFirQuestions } from "./police-fir";
+export { trafficQuestions } from "./traffic";
+export { seniorCitizenQuestions } from "./senior-citizen";
+export { domesticHelpQuestions } from "./domestic-help";

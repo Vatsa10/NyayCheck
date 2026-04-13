@@ -25,8 +25,8 @@ export const legalGuides: LegalGuide[] = [
   {
     id: "file-fir",
     title: { en: "How to File an FIR", hi: "FIR कैसे दर्ज करें" },
-    description: { en: "Step-by-step guide to filing a First Information Report at a police station.", hi: "पुलिस स्टेशन में प्रथम सूचना रिपोर्ट दर्ज करने की चरणबद्ध मार्गदर्शिका।" },
-    category: "emergency",
+    description: { en: "Step-by-step guide to filing an FIR. Updated with BNSS 2023 (new criminal law) provisions including Zero FIR and audio-visual recording.", hi: "FIR दर्ज करने की चरणबद्ध मार्गदर्शिका। BNSS 2023 (नया आपराधिक कानून) प्रावधानों सहित — ज़ीरो FIR और ऑडियो-विज़ुअल रिकॉर्डिंग।" },
+    category: "police-fir",
     estimatedTime: "1-2 hours",
     estimatedCost: "Free",
     icon: "FileText",

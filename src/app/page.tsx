@@ -30,6 +30,9 @@ import {
   X,
   Banknote,
   Siren,
+  Car,
+  UserRound,
+  HandHelping,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
@@ -46,6 +49,9 @@ const iconMap: Record<string, React.ElementType> = {
   Shield,
   Banknote,
   Siren,
+  Car,
+  UserRound,
+  HandHelping,
 };
 
 export default function LandingPage() {

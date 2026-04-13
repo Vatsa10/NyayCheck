@@ -8,6 +8,9 @@ import { ecommerceQuestions } from "./questions/ecommerce";
 import { cyberFraudQuestions } from "./questions/cyber-fraud";
 import { chequeBounceQuestions } from "./questions/cheque-bounce";
 import { policeFirQuestions } from "./questions/police-fir";
+import { trafficQuestions } from "./questions/traffic";
+import { seniorCitizenQuestions } from "./questions/senior-citizen";
+import { domesticHelpQuestions } from "./questions/domestic-help";
 
 export const categories: CategoryDefinition[] = [
   {
@@ -153,6 +156,52 @@ export const categories: CategoryDefinition[] = [
       "IPC Section 166A",
     ],
     questions: policeFirQuestions,
+  },
+  {
+    id: "traffic",
+    name: { en: "Traffic & Accidents", hi: "यातायात और दुर्घटना" },
+    description: {
+      en: "E-challans, accidents, license issues, MACT claims",
+      hi: "ई-चालान, दुर्घटना, लाइसेंस, MACT दावे",
+    },
+    icon: "Car",
+    color: "bg-cyan-600",
+    relevantActs: [
+      "Motor Vehicles Act, 1988",
+      "Motor Vehicles (Amendment) Act, 2019",
+    ],
+    questions: trafficQuestions,
+  },
+  {
+    id: "senior-citizen",
+    name: { en: "Senior Citizens", hi: "वरिष्ठ नागरिक" },
+    description: {
+      en: "Maintenance, property protection, abuse, pension, health schemes",
+      hi: "भरण-पोषण, संपत्ति सुरक्षा, शोषण, पेंशन, स्वास्थ्य योजनाएं",
+    },
+    icon: "UserRound",
+    color: "bg-teal-500",
+    relevantActs: [
+      "Maintenance and Welfare of Parents and Senior Citizens Act, 2007",
+      "Indian Succession Act, 1925",
+    ],
+    questions: seniorCitizenQuestions,
+  },
+  {
+    id: "domestic-help",
+    name: { en: "Domestic Workers", hi: "घरेलू कामगार" },
+    description: {
+      en: "Wages, harassment, working conditions, e-Shram registration",
+      hi: "मज़दूरी, उत्पीड़न, कार्य परिस्थितियां, ई-श्रम पंजीकरण",
+    },
+    icon: "HandHelping",
+    color: "bg-lime-600",
+    relevantActs: [
+      "Minimum Wages Act, 1948",
+      "POSH Act, 2013",
+      "Unorganised Workers Social Security Act, 2008",
+    ],
+    questions: domesticHelpQuestions,
   },
 ];
 
