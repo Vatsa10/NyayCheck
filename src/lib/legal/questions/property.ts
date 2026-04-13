@@ -134,4 +134,24 @@ export const propertyQuestions: Question[] = [
       { value: "no", label: { en: "No", hi: "नहीं" }, scoreWeight: 0 },
     ],
   },
+  {
+    id: "prop_neighbor_dispute",
+    category: "property",
+    order: 8,
+    type: "yes_no",
+    question: {
+      en: "Are you facing a dispute with your neighbor (encroachment, noise, drainage, parking)?",
+      hi: "क्या आपका पड़ोसी से विवाद है (अतिक्रमण, शोर, जल निकासी, पार्किंग)?",
+    },
+    required: true,
+    options: [
+      {
+        value: "yes",
+        label: { en: "Yes", hi: "हाँ" },
+        scoreWeight: 10,
+        checklistFlags: ["boundary_dispute"],
+      },
+      { value: "no", label: { en: "No", hi: "नहीं" }, scoreWeight: 0 },
+    ],
+  },
 ];

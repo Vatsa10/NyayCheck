@@ -151,4 +151,29 @@ export const consumerQuestions: Question[] = [
       },
     ],
   },
+  {
+    id: "consumer_medical",
+    category: "consumer",
+    order: 7,
+    type: "yes_no",
+    question: {
+      en: "Is this related to medical treatment / hospital negligence?",
+      hi: "क्या यह चिकित्सा उपचार / अस्पताल की लापरवाही से संबंधित है?",
+    },
+    helpText: {
+      en: "Healthcare is a 'service' under the Consumer Protection Act 2019. You can file a consumer complaint against hospitals and doctors.",
+      hi: "उपभोक्ता संरक्षण अधिनियम 2019 के तहत स्वास्थ्य सेवा एक 'सेवा' है। आप अस्पतालों और डॉक्टरों के खिलाफ उपभोक्ता शिकायत दर्ज कर सकते हैं।",
+    },
+    condition: { questionId: "consumer_issue_type", values: ["poor_service"] },
+    required: true,
+    options: [
+      {
+        value: "yes",
+        label: { en: "Yes", hi: "हाँ" },
+        scoreWeight: 15,
+        checklistFlags: ["consumer_complaint_eligible", "defective_product"],
+      },
+      { value: "no", label: { en: "No", hi: "नहीं" }, scoreWeight: 0 },
+    ],
+  },
 ];

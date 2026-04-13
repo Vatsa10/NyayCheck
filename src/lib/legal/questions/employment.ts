@@ -125,4 +125,28 @@ export const employmentQuestions: Question[] = [
       { value: "above_5yr", label: { en: "More than 5 years", hi: "5 वर्ष से अधिक" } },
     ],
   },
+  {
+    id: "emp_relieving_letter",
+    category: "employment",
+    order: 7,
+    type: "yes_no",
+    question: {
+      en: "Is your employer refusing to give you a relieving / experience letter?",
+      hi: "क्या आपका नियोक्ता रिलीविंग / अनुभव पत्र देने से मना कर रहा है?",
+    },
+    helpText: {
+      en: "Withholding a relieving letter is illegal. You can send a legal notice and file a complaint with the Labour Commissioner.",
+      hi: "रिलीविंग लेटर रोकना गैरकानूनी है। आप कानूनी नोटिस भेज सकते हैं और श्रम आयुक्त को शिकायत कर सकते हैं।",
+    },
+    required: true,
+    options: [
+      {
+        value: "yes",
+        label: { en: "Yes", hi: "हाँ" },
+        scoreWeight: 15,
+        checklistFlags: ["salary_withheld"],
+      },
+      { value: "no", label: { en: "No", hi: "नहीं" }, scoreWeight: 0 },
+    ],
+  },
 ];

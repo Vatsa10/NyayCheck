@@ -138,4 +138,28 @@ export const familyQuestions: Question[] = [
       { value: "no", label: { en: "No", hi: "नहीं" }, scoreWeight: 0 },
     ],
   },
+  {
+    id: "family_dowry",
+    category: "family",
+    order: 7,
+    type: "yes_no",
+    question: {
+      en: "Are you or someone you know facing dowry demands or dowry harassment?",
+      hi: "क्या आप या आपका कोई परिचित दहेज मांग या दहेज उत्पीड़न का सामना कर रहा है?",
+    },
+    helpText: {
+      en: "Demanding dowry is a criminal offence under the Dowry Prohibition Act, 1961. Harassment for dowry is punishable under S.498A IPC.",
+      hi: "दहेज मांगना दहेज निषेध अधिनियम, 1961 के तहत आपराधिक अपराध है। दहेज के लिए उत्पीड़न IPC की धारा 498A के तहत दंडनीय है।",
+    },
+    required: true,
+    options: [
+      {
+        value: "yes",
+        label: { en: "Yes", hi: "हाँ" },
+        scoreWeight: 20,
+        checklistFlags: ["domestic_violence"],
+      },
+      { value: "no", label: { en: "No", hi: "नहीं" }, scoreWeight: 0 },
+    ],
+  },
 ];
