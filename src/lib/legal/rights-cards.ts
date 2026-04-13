@@ -10,7 +10,7 @@ export interface RightsCard {
   icon: string;
 }
 
-export type RightsCategory = "all" | "rent" | "consumer" | "employment" | "family" | "cyber-fraud" | "ecommerce" | "legal" | "property" | "emergency";
+export type RightsCategory = "all" | "rent" | "consumer" | "employment" | "family" | "cyber-fraud" | "ecommerce" | "legal" | "property" | "emergency" | "cheque-bounce" | "police-fir";
 
 export const rightsCategories: { id: RightsCategory; label: BilingualText }[] = [
   { id: "all", label: { en: "All", hi: "सभी" } },
@@ -22,6 +22,8 @@ export const rightsCategories: { id: RightsCategory; label: BilingualText }[] = 
   { id: "legal", label: { en: "Legal", hi: "कानूनी" } },
   { id: "property", label: { en: "Property", hi: "संपत्ति" } },
   { id: "emergency", label: { en: "Emergency", hi: "आपातकालीन" } },
+  { id: "cheque-bounce", label: { en: "Cheque Bounce", hi: "चेक बाउंस" } },
+  { id: "police-fir", label: { en: "Police/FIR", hi: "पुलिस/FIR" } },
 ];
 
 export const rightsCards: RightsCard[] = [
@@ -324,5 +326,125 @@ export const rightsCards: RightsCard[] = [
       hi: "साइबर अपराध — पुलिस का कर्तव्य:\n\n1. FIR दर्ज करना ज़रूरी\n2. cybercrime.gov.in पर ऑनलाइन FIR\n3. ज़ीरो FIR किसी भी थाने में\n4. डिजिटल सबूतों की जांच ज़रूरी\n5. कार्रवाई न हो तो मजिस्ट्रेट को शिकायत\n\n— NyayCheck",
     },
     icon: "Monitor",
+  },
+
+  // 16. Cheque Bounce Rights
+  {
+    id: "cheque-bounce-rights",
+    title: { en: "Your Rights When Cheque Bounces", hi: "चेक बाउंस होने पर आपके अधिकार" },
+    category: "cheque-bounce",
+    points: [
+      { en: "Drawer must pay within 15 days of receiving your legal notice.", hi: "ड्रॉअर को आपका कानूनी नोटिस प्राप्त होने के 15 दिनों के भीतर भुगतान करना होगा।" },
+      { en: "You can file a criminal case under Section 138 of the Negotiable Instruments Act.", hi: "आप परक्राम्य लिखत अधिनियम की धारा 138 के तहत आपराधिक मामला दर्ज कर सकते हैं।" },
+      { en: "Punishment: up to 2 years imprisonment or fine up to twice the cheque amount, or both.", hi: "सज़ा: 2 साल तक की कैद या चेक राशि का दोगुना तक जुर्माना, या दोनों।" },
+      { en: "Legal notice must be sent within 30 days of cheque bounce — don't miss this deadline.", hi: "चेक बाउंस के 30 दिनों के भीतर कानूनी नोटिस भेजना ज़रूरी है — यह समय सीमा न चूकें।" },
+      { en: "You don't need a lawyer to file the complaint — you can do it yourself.", hi: "शिकायत दर्ज करने के लिए वकील की ज़रूरत नहीं — आप खुद कर सकते हैं।" },
+    ],
+    applicableAct: "Negotiable Instruments Act, 1881 S.138",
+    shareText: {
+      en: "Cheque Bounced? Know Your Rights:\n\n1. Drawer must pay in 15 days of notice\n2. File criminal case under S.138\n3. Punishment: 2 years or 2x cheque amount\n4. Send notice within 30 days of bounce\n5. No lawyer needed to file\n\nKnow your rights.\n— NyayCheck",
+      hi: "चेक बाउंस? अपने अधिकार जानें:\n\n1. नोटिस के 15 दिन में भुगतान ज़रूरी\n2. धारा 138 में आपराधिक केस\n3. सज़ा: 2 साल या चेक राशि का दोगुना\n4. 30 दिन में नोटिस भेजें\n5. वकील की ज़रूरत नहीं\n\n— NyayCheck",
+    },
+    icon: "Banknote",
+  },
+
+  // 17. Police FIR Rights
+  {
+    id: "police-fir-rights",
+    title: { en: "What Police MUST Do When You File Complaint", hi: "शिकायत दर्ज करने पर पुलिस को क्या करना चाहिए" },
+    category: "police-fir",
+    points: [
+      { en: "Police MUST register FIR for cognizable offences — refusal is a criminal offence.", hi: "पुलिस को संज्ञेय अपराधों के लिए FIR दर्ज करनी ही होगी — इनकार करना अपराध है।" },
+      { en: "Refusal to file FIR is punishable under Section 166A IPC — the officer can face imprisonment.", hi: "FIR दर्ज करने से इनकार IPC की धारा 166A के तहत दंडनीय है — अधिकारी को कैद हो सकती है।" },
+      { en: "You must get a free copy of the FIR — this is your legal right under CrPC Section 154.", hi: "आपको FIR की मुफ्त प्रति मिलनी चाहिए — यह CrPC धारा 154 के तहत आपका कानूनी अधिकार है।" },
+      { en: "Zero FIR — you can file at ANY police station regardless of jurisdiction.", hi: "ज़ीरो FIR — आप किसी भी पुलिस स्टेशन में दर्ज कर सकते हैं, क्षेत्राधिकार की परवाह नहीं।" },
+      { en: "If station refuses, send written complaint to SP/DCP — they are duty-bound to act.", hi: "थाना मना करे तो SP/DCP को लिखित शिकायत भेजें — वे कार्रवाई करने के लिए बाध्य हैं।" },
+    ],
+    applicableAct: "CrPC Section 154 / BNSS Section 173",
+    shareText: {
+      en: "Police MUST Do This:\n\n1. MUST register FIR for cognizable offences\n2. Refusal = punishable under S.166A IPC\n3. Free FIR copy is your right\n4. Zero FIR at ANY station\n5. Refused? Write to SP/DCP\n\nKnow your rights.\n— NyayCheck",
+      hi: "पुलिस का कर्तव्य:\n\n1. संज्ञेय अपराध में FIR ज़रूरी\n2. इनकार = धारा 166A में सज़ा\n3. FIR की मुफ्त प्रति आपका हक\n4. ज़ीरो FIR किसी भी थाने में\n5. मना करें? SP/DCP को लिखें\n\n— NyayCheck",
+    },
+    icon: "Siren",
+  },
+
+  // 18. Dowry Rights
+  {
+    id: "dowry-rights",
+    title: { en: "Your Rights Against Dowry", hi: "दहेज के खिलाफ आपके अधिकार" },
+    category: "family",
+    points: [
+      { en: "Demanding dowry is illegal — it is a criminal offence punishable with imprisonment.", hi: "दहेज मांगना अवैध है — यह कैद की सज़ा वाला आपराधिक अपराध है।" },
+      { en: "Both giving and taking dowry is punishable with up to 5 years imprisonment.", hi: "दहेज देना और लेना दोनों 5 साल तक की कैद से दंडनीय है।" },
+      { en: "Harassment for dowry is a criminal offence under Section 498A IPC.", hi: "दहेज के लिए उत्पीड़न IPC की धारा 498A के तहत आपराधिक अपराध है।" },
+      { en: "File complaint at the nearest Women's Cell or police station.", hi: "निकटतम महिला सेल या पुलिस स्टेशन में शिकायत दर्ज करें।" },
+      { en: "Call 181 Women Helpline for immediate assistance and guidance.", hi: "तत्काल सहायता और मार्गदर्शन के लिए 181 महिला हेल्पलाइन पर कॉल करें।" },
+    ],
+    applicableAct: "Dowry Prohibition Act, 1961 + S.498A IPC",
+    shareText: {
+      en: "Rights Against Dowry:\n\n1. Demanding dowry = illegal\n2. Giving & taking = 5 years jail\n3. Harassment = S.498A IPC\n4. File complaint at Women's Cell\n5. Call 181 Women Helpline\n\nShare this. Save a life.\n— NyayCheck",
+      hi: "दहेज विरोधी अधिकार:\n\n1. दहेज मांगना = अवैध\n2. देना-लेना = 5 साल कैद\n3. उत्पीड़न = धारा 498A\n4. महिला सेल में शिकायत करें\n5. 181 हेल्पलाइन पर कॉल करें\n\nशेयर करें। किसी की जान बचाएं।\n— NyayCheck",
+    },
+    icon: "Heart",
+  },
+
+  // 19. Hospital Patient Rights
+  {
+    id: "hospital-patient-rights",
+    title: { en: "Your Rights as a Hospital Patient", hi: "अस्पताल में मरीज़ के रूप में आपके अधिकार" },
+    category: "consumer",
+    points: [
+      { en: "Healthcare is a 'service' under Consumer Protection Act — you can sue for negligence.", hi: "उपभोक्ता संरक्षण अधिनियम के तहत स्वास्थ्य सेवा एक 'सेवा' है — आप लापरवाही के लिए मुकदमा कर सकते हैं।" },
+      { en: "You have the right to access your medical records — the hospital must provide copies.", hi: "आपको अपने मेडिकल रिकॉर्ड देखने का अधिकार है — अस्पताल को प्रतियां देनी होंगी।" },
+      { en: "You have the right to a second opinion from another doctor before any major procedure.", hi: "किसी भी बड़ी प्रक्रिया से पहले दूसरे डॉक्टर से राय लेने का अधिकार है।" },
+      { en: "File complaint at Consumer Forum (edaakhil.nic.in) for medical negligence.", hi: "चिकित्सा लापरवाही के लिए उपभोक्ता फोरम (edaakhil.nic.in) में शिकायत दर्ज करें।" },
+      { en: "Emergency treatment cannot be denied — no hospital can refuse a patient in emergency.", hi: "आपातकालीन उपचार से इनकार नहीं किया जा सकता — कोई अस्पताल इमरजेंसी में मरीज़ को मना नहीं कर सकता।" },
+    ],
+    applicableAct: "Consumer Protection Act, 2019",
+    shareText: {
+      en: "Hospital Patient Rights:\n\n1. Healthcare = 'service' — you can sue\n2. Right to your medical records\n3. Right to second opinion\n4. File at Consumer Forum for negligence\n5. Emergency treatment cannot be denied\n\nKnow your rights.\n— NyayCheck",
+      hi: "अस्पताल में मरीज़ के अधिकार:\n\n1. स्वास्थ्य सेवा = 'सेवा' — मुकदमा कर सकते हैं\n2. मेडिकल रिकॉर्ड का अधिकार\n3. दूसरी राय का अधिकार\n4. उपभोक्ता फोरम में शिकायत\n5. इमरजेंसी इलाज से मना नहीं कर सकते\n\n— NyayCheck",
+    },
+    icon: "HeartPulse",
+  },
+
+  // 20. Neighbor Nuisance Rights
+  {
+    id: "neighbor-nuisance-rights",
+    title: { en: "Your Rights Against Neighbor Nuisance", hi: "पड़ोसी उपद्रव के खिलाफ आपके अधिकार" },
+    category: "property",
+    points: [
+      { en: "Noise limit in residential areas: 55dB during day, 45dB at night — violation is punishable.", hi: "आवासीय क्षेत्रों में शोर सीमा: दिन में 55dB, रात में 45dB — उल्लंघन दंडनीय है।" },
+      { en: "You can file a police complaint for nuisance under IPC Section 268 / CrPC Section 133.", hi: "IPC धारा 268 / CrPC धारा 133 के तहत उपद्रव के लिए पुलिस शिकायत दर्ज कर सकते हैं।" },
+      { en: "Housing society rules are binding on all members — violations can lead to penalties.", hi: "हाउसिंग सोसाइटी के नियम सभी सदस्यों पर बाध्यकारी हैं — उल्लंघन से जुर्माना हो सकता है।" },
+      { en: "For encroachment on your property, file a civil suit for injunction and removal.", hi: "आपकी संपत्ति पर अतिक्रमण के लिए निषेधाज्ञा और हटाने के लिए सिविल मुकदमा दायर करें।" },
+      { en: "Pollution Control Board handles noise, air, and water pollution complaints.", hi: "प्रदूषण नियंत्रण बोर्ड शोर, वायु और जल प्रदूषण की शिकायतों को संभालता है।" },
+    ],
+    applicableAct: "CrPC Section 133 / IPC Section 268 / Noise Pollution Rules",
+    shareText: {
+      en: "Neighbor Nuisance? Your Rights:\n\n1. Noise limit: 55dB day, 45dB night\n2. Police complaint for nuisance\n3. Society rules are binding\n4. Encroachment = civil suit\n5. Pollution board for noise/air/water\n\nKnow your rights.\n— NyayCheck",
+      hi: "पड़ोसी उपद्रव? आपके अधिकार:\n\n1. शोर सीमा: दिन 55dB, रात 45dB\n2. उपद्रव पर पुलिस शिकायत\n3. सोसाइटी नियम बाध्यकारी\n4. अतिक्रमण = सिविल मुकदमा\n5. प्रदूषण बोर्ड में शिकायत\n\n— NyayCheck",
+    },
+    icon: "Home",
+  },
+
+  // 21. Speed Up Court Case
+  {
+    id: "speed-up-court-case",
+    title: { en: "5 Ways to Speed Up a Court Case", hi: "कोर्ट केस तेज़ करने के 5 तरीके" },
+    category: "legal",
+    points: [
+      { en: "File an application for early hearing citing urgency — courts give priority to genuine urgency.", hi: "तात्कालिकता का हवाला देते हुए शीघ्र सुनवाई के लिए आवेदन दें — कोर्ट वास्तविक तात्कालिकता को प्राथमिकता देता है।" },
+      { en: "Object to unnecessary adjournments on record — courts can impose costs.", hi: "अनावश्यक स्थगन पर रिकॉर्ड पर आपत्ति करें — कोर्ट जुर्माना लगा सकता है।" },
+      { en: "File RTI asking for case status and specific reasons for delay.", hi: "केस की स्थिति और देरी के विशिष्ट कारण पूछते हुए RTI दर्ज करें।" },
+      { en: "Try Lok Adalat — it's free, fast, and decisions are final and binding.", hi: "लोक अदालत आज़माएं — यह मुफ्त, तेज़ है और फैसले अंतिम व बाध्यकारी हैं।" },
+      { en: "Write to the court registry highlighting inordinate delay in your case.", hi: "अपने केस में अत्यधिक देरी को उजागर करते हुए कोर्ट रजिस्ट्री को लिखें।" },
+    ],
+    applicableAct: "Article 21 — Right to Speedy Trial",
+    shareText: {
+      en: "Speed Up Your Court Case:\n\n1. File early hearing application\n2. Object to adjournments on record\n3. File RTI on case status\n4. Try Lok Adalat (free, binding)\n5. Write to court registry about delay\n\nSpeedy trial is your right (Art. 21).\n— NyayCheck",
+      hi: "कोर्ट केस तेज़ करें:\n\n1. शीघ्र सुनवाई आवेदन दें\n2. स्थगन पर आपत्ति करें\n3. RTI से स्थिति पूछें\n4. लोक अदालत (मुफ्त, बाध्यकारी)\n5. कोर्ट रजिस्ट्री को लिखें\n\nत्वरित सुनवाई आपका हक (अनु. 21)।\n— NyayCheck",
+    },
+    icon: "Scale",
   },
 ];
