@@ -32,15 +32,16 @@ export const legalGuides: LegalGuide[] = [
     icon: "FileText",
     relatedHelpline: "100",
     steps: [
-      { order: 1, title: { en: "Go to the nearest police station", hi: "निकटतम पुलिस स्टेशन जाएं" }, description: { en: "Visit the police station that has jurisdiction over the area where the incident occurred. FIR can be filed at any police station under Zero FIR provision.", hi: "जहां घटना हुई है उस क्षेत्र के पुलिस स्टेशन में जाएं। ज़ीरो FIR प्रावधान के तहत किसी भी पुलिस स्टेशन में FIR दर्ज हो सकती है।" }, where: { en: "Nearest police station", hi: "निकटतम पुलिस स्टेशन" } },
-      { order: 2, title: { en: "Narrate the incident to the duty officer", hi: "ड्यूटी अधिकारी को घटना बताएं" }, description: { en: "Clearly describe what happened — who, when, where. The officer must write it down. You can give your statement in Hindi or your local language.", hi: "स्पष्ट रूप से बताएं क्या हुआ — कौन, कब, कहां। अधिकारी को लिखना अनिवार्य है।" } },
-      { order: 3, title: { en: "Read and sign the FIR", hi: "FIR पढ़ें और हस्ताक्षर करें" }, description: { en: "Read the written FIR carefully before signing. If anything is incorrect, ask for correction. You have the RIGHT to read it.", hi: "हस्ताक्षर करने से पहले FIR ध्यान से पढ़ें। कुछ गलत हो तो सुधार मांगें।" } },
-      { order: 4, title: { en: "Get a free copy of the FIR", hi: "FIR की मुफ्त प्रति प्राप्त करें" }, description: { en: "Under Section 154 CrPC, police MUST give you a free copy of the FIR. This is your right — do not leave without it.", hi: "CrPC की धारा 154 के तहत, पुलिस को FIR की मुफ्त प्रति देनी अनिवार्य है।" }, documents: [{ en: "FIR copy (free)", hi: "FIR प्रति (मुफ्त)" }] },
-      { order: 5, title: { en: "If police refuses to file FIR", hi: "यदि पुलिस FIR दर्ज करने से मना करे" }, description: { en: "Send a written complaint to the SP/DCP by registered post. You can also file a complaint to the Judicial Magistrate under Section 156(3) CrPC who can direct police to file the FIR.", hi: "SP/DCP को पंजीकृत डाक से लिखित शिकायत भेजें। आप CrPC की धारा 156(3) के तहत न्यायिक मजिस्ट्रेट को भी शिकायत कर सकते हैं।" } },
+      { order: 1, title: { en: "Go to ANY police station (Zero FIR)", hi: "किसी भी पुलिस स्टेशन जाएं (ज़ीरो FIR)" }, description: { en: "Under BNSS Section 173, you can file a Zero FIR at ANY police station regardless of where the incident occurred. The FIR will be transferred to the correct jurisdiction later. No police station can turn you away.", hi: "BNSS धारा 173 के तहत, आप किसी भी पुलिस स्टेशन में ज़ीरो FIR दर्ज कर सकते हैं, चाहे घटना कहीं भी हुई हो। FIR बाद में सही क्षेत्राधिकार में स्थानांतरित होगी।" }, where: { en: "Any police station", hi: "कोई भी पुलिस स्टेशन" } },
+      { order: 2, title: { en: "Narrate the incident — police must record it", hi: "घटना बताएं — पुलिस को लिखना अनिवार्य है" }, description: { en: "Clearly describe who, when, where, what happened. Under BNSS 2023, the police must register FIR electronically within 24 hours. Audio-visual recording of your statement may be done under new provisions.", hi: "स्पष्ट रूप से बताएं कौन, कब, कहां, क्या हुआ। BNSS 2023 के तहत, पुलिस को 24 घंटे में इलेक्ट्रॉनिक रूप से FIR दर्ज करनी होगी।" } },
+      { order: 3, title: { en: "Read and sign the FIR", hi: "FIR पढ़ें और हस्ताक्षर करें" }, description: { en: "Read the written FIR carefully before signing. If anything is incorrect, ask for correction. You have the RIGHT to read it. Under BNSS, you can also receive the FIR copy electronically.", hi: "हस्ताक्षर करने से पहले FIR ध्यान से पढ़ें। कुछ गलत हो तो सुधार मांगें। BNSS के तहत, आप इलेक्ट्रॉनिक रूप से भी FIR प्रति प्राप्त कर सकते हैं।" } },
+      { order: 4, title: { en: "Get a free copy of the FIR", hi: "FIR की मुफ्त प्रति प्राप्त करें" }, description: { en: "Under BNSS Section 173 (replacing CrPC 154), police MUST give you a free copy of the FIR. This is your right — do not leave without it.", hi: "BNSS धारा 173 (CrPC 154 की जगह) के तहत, पुलिस को FIR की मुफ्त प्रति देनी अनिवार्य है।" }, documents: [{ en: "FIR copy (free)", hi: "FIR प्रति (मुफ्त)" }] },
+      { order: 5, title: { en: "If police refuses — escalate immediately", hi: "यदि पुलिस मना करे — तुरंत शिकायत करें" }, description: { en: "Send written complaint to SP/DCP via registered post. You can file a complaint to the Judicial Magistrate under BNSS Section 175(3) (replacing CrPC 156(3)) who can direct police to file FIR. Refusal is punishable under BNS.", hi: "SP/DCP को पंजीकृत डाक से लिखित शिकायत भेजें। BNSS धारा 175(3) के तहत न्यायिक मजिस्ट्रेट को शिकायत दर्ज कर सकते हैं। इनकार BNS के तहत दंडनीय है।" } },
     ],
     tips: [
-      { en: "Police CANNOT refuse to file an FIR for a cognizable offence — this is illegal under Section 166A IPC.", hi: "पुलिस संज्ञेय अपराध के लिए FIR दर्ज करने से मना नहीं कर सकती — यह IPC की धारा 166A के तहत अवैध है।" },
-      { en: "You can file an FIR online in many states via their police website.", hi: "कई राज्यों में आप पुलिस वेबसाइट से ऑनलाइन FIR दर्ज कर सकते हैं।" },
+      { en: "Under BNS/BNSS 2023, police refusal to file FIR is a punishable offence. Zero FIR is now law — any station must accept.", hi: "BNS/BNSS 2023 के तहत, FIR दर्ज करने से इनकार दंडनीय अपराध है। ज़ीरो FIR अब कानून है — कोई भी स्टेशन स्वीकार करे।" },
+      { en: "Audio-visual recording of search and seizure is now mandatory under BNSS 2023. Ask police to comply.", hi: "BNSS 2023 के तहत तलाशी और ज़ब्ती की ऑडियो-विज़ुअल रिकॉर्डिंग अब अनिवार्य है।" },
+      { en: "You can file FIR online in many states. Electronic evidence (screenshots, videos) is now explicitly admissible under BSA 2023.", hi: "कई राज्यों में ऑनलाइन FIR दर्ज कर सकते हैं। BSA 2023 के तहत इलेक्ट्रॉनिक साक्ष्य अब स्पष्ट रूप से स्वीकार्य है।" },
       { en: "Keep a copy of the FIR safely — you'll need it for insurance claims and court proceedings.", hi: "FIR की प्रति सुरक्षित रखें — बीमा दावे और अदालती कार्यवाही के लिए ज़रूरी है।" },
     ],
   },
@@ -333,6 +334,77 @@ export const legalGuides: LegalGuide[] = [
     tips: [
       { en: "Relieving letter is your right after serving the notice period — the company cannot withhold it.", hi: "नोटिस अवधि पूरी करने के बाद रिलीविंग लेटर आपका अधिकार है — कंपनी इसे रोक नहीं सकती।" },
       { en: "Company cannot hold the relieving letter to prevent you from joining another employer.", hi: "कंपनी आपको दूसरे नियोक्ता से जुड़ने से रोकने के लिए रिलीविंग लेटर नहीं रोक सकती।" },
+    ],
+  },
+
+  // Guide: Dispute a Traffic Challan Online
+  {
+    id: "dispute-traffic-challan",
+    title: { en: "How to Dispute a Traffic Challan Online", hi: "ट्रैफिक चालान की ऑनलाइन आपत्ति कैसे करें" },
+    description: { en: "Step-by-step guide to disputing an incorrect traffic challan through the e-challan portal.", hi: "ई-चालान पोर्टल के माध्यम से गलत ट्रैफिक चालान पर आपत्ति दर्ज करने की चरणबद्ध मार्गदर्शिका।" },
+    category: "traffic",
+    estimatedTime: "30 min - 1 hour",
+    estimatedCost: "Free",
+    icon: "Car",
+    steps: [
+      { order: 1, title: { en: "Check challan on echallan.parivahan.gov.in", hi: "echallan.parivahan.gov.in पर चालान जाँचें" }, description: { en: "Visit the e-challan portal and check the challan details using your vehicle number or challan number. Verify whether the challan is correct.", hi: "ई-चालान पोर्टल पर जाएं और अपने वाहन नंबर या चालान नंबर से चालान का विवरण जाँचें। सत्यापित करें कि चालान सही है या नहीं।" }, where: { en: "echallan.parivahan.gov.in", hi: "echallan.parivahan.gov.in" } },
+      { order: 2, title: { en: "If incorrect, gather evidence", hi: "गलत हो तो सबूत इकट्ठा करें" }, description: { en: "Collect dashcam footage, GPS location data, photographs, or any other evidence that proves the challan is incorrect.", hi: "डैशकैम फुटेज, GPS लोकेशन डेटा, फोटोग्राफ या कोई अन्य सबूत इकट्ठा करें जो साबित करे कि चालान गलत है।" }, documents: [{ en: "Dashcam footage", hi: "डैशकैम फुटेज" }, { en: "GPS data", hi: "GPS डेटा" }, { en: "Photographs", hi: "फोटोग्राफ" }] },
+      { order: 3, title: { en: "File dispute online on the e-challan portal or visit Virtual Traffic Court", hi: "ई-चालान पोर्टल पर ऑनलाइन आपत्ति दर्ज करें या वर्चुअल ट्रैफिक कोर्ट जाएं" }, description: { en: "Use the dispute option on the e-challan portal to file your objection. You can also approach the Virtual Traffic Court in your city.", hi: "ई-चालान पोर्टल पर आपत्ति विकल्प का उपयोग करके अपनी आपत्ति दर्ज करें। आप अपने शहर के वर्चुअल ट्रैफिक कोर्ट में भी जा सकते हैं।" }, where: { en: "e-Challan Portal / Virtual Traffic Court", hi: "ई-चालान पोर्टल / वर्चुअल ट्रैफिक कोर्ट" } },
+      { order: 4, title: { en: "Attend virtual hearing if required", hi: "आवश्यक हो तो वर्चुअल सुनवाई में शामिल हों" }, description: { en: "If a hearing is scheduled, attend the virtual hearing and present your evidence. Be prepared with all documents.", hi: "यदि सुनवाई निर्धारित हो, तो वर्चुअल सुनवाई में शामिल हों और अपने सबूत प्रस्तुत करें। सभी दस्तावेज़ तैयार रखें।" } },
+      { order: 5, title: { en: "If not resolved, file appeal with Transport Commissioner", hi: "समाधान न हो तो परिवहन आयुक्त के पास अपील करें" }, description: { en: "If your dispute is rejected, you can file an appeal with the Transport Commissioner of your state.", hi: "यदि आपकी आपत्ति खारिज हो जाती है, तो आप अपने राज्य के परिवहन आयुक्त के पास अपील दायर कर सकते हैं।" } },
+    ],
+    tips: [
+      { en: "Digital documents on DigiLocker are legally valid — you can use them as evidence.", hi: "DigiLocker पर डिजिटल दस्तावेज़ कानूनी रूप से मान्य हैं — आप इन्हें सबूत के रूप में उपयोग कर सकते हैं।" },
+      { en: "You have 60 days to dispute a traffic challan.", hi: "ट्रैफिक चालान पर आपत्ति दर्ज करने के लिए आपके पास 60 दिन का समय है।" },
+      { en: "Keep screenshots of the challan and your evidence for records.", hi: "चालान और अपने सबूतों के स्क्रीनशॉट रिकॉर्ड के लिए सुरक्षित रखें।" },
+    ],
+  },
+
+  // Guide: File for Senior Citizen Maintenance
+  {
+    id: "senior-maintenance",
+    title: { en: "How to File for Senior Citizen Maintenance", hi: "वरिष्ठ नागरिक भरण-पोषण के लिए आवेदन कैसे करें" },
+    description: { en: "How elderly parents can claim maintenance from their children through the Maintenance Tribunal.", hi: "बुज़ुर्ग माता-पिता भरण-पोषण न्यायाधिकरण के माध्यम से अपने बच्चों से भरण-पोषण का दावा कैसे कर सकते हैं।" },
+    category: "senior-citizen",
+    estimatedTime: "1-2 hours",
+    estimatedCost: "Free",
+    icon: "UserRound",
+    relatedHelpline: "14567",
+    steps: [
+      { order: 1, title: { en: "Write application to Maintenance Tribunal", hi: "भरण-पोषण न्यायाधिकरण को आवेदन लिखें" }, description: { en: "Write an application addressed to the Maintenance Tribunal through the District Magistrate's office in your district.", hi: "अपने जिले के जिला मजिस्ट्रेट कार्यालय के माध्यम से भरण-पोषण न्यायाधिकरण को संबोधित आवेदन लिखें।" }, where: { en: "District Magistrate's Office", hi: "जिला मजिस्ट्रेट कार्यालय" } },
+      { order: 2, title: { en: "Attach required documents", hi: "आवश्यक दस्तावेज़ संलग्न करें" }, description: { en: "Attach your age proof, income proof, and details of your children (names, addresses, income if known).", hi: "अपना आयु प्रमाण, आय प्रमाण और अपने बच्चों का विवरण (नाम, पता, यदि ज्ञात हो तो आय) संलग्न करें।" }, documents: [{ en: "Aadhaar card", hi: "आधार कार्ड" }, { en: "Address proof", hi: "पता प्रमाण" }, { en: "Income details", hi: "आय विवरण" }, { en: "Property documents (if applicable)", hi: "संपत्ति दस्तावेज़ (यदि लागू हो)" }] },
+      { order: 3, title: { en: "Tribunal issues notice to children", hi: "न्यायाधिकरण बच्चों को नोटिस जारी करता है" }, description: { en: "Once your application is accepted, the Tribunal will issue a notice to your children to appear before it.", hi: "आवेदन स्वीकार होने पर न्यायाधिकरण आपके बच्चों को उपस्थित होने के लिए नोटिस जारी करेगा।" } },
+      { order: 4, title: { en: "Hearing within 90 days", hi: "90 दिनों के भीतर सुनवाई" }, description: { en: "The Tribunal must conduct the hearing and pass orders within 90 days of receiving the application.", hi: "न्यायाधिकरण को आवेदन प्राप्त होने के 90 दिनों के भीतर सुनवाई करनी होगी और आदेश पारित करने होंगे।" } },
+      { order: 5, title: { en: "Tribunal can order up to ₹10,000/month maintenance", hi: "न्यायाधिकरण ₹10,000/माह तक भरण-पोषण का आदेश दे सकता है" }, description: { en: "The Tribunal can order your children to pay up to ₹10,000 per month as maintenance allowance.", hi: "न्यायाधिकरण आपके बच्चों को प्रति माह ₹10,000 तक भरण-पोषण भत्ता देने का आदेश दे सकता है।" } },
+    ],
+    tips: [
+      { en: "No lawyer is needed — you can file the application yourself. The process is free of cost.", hi: "किसी वकील की ज़रूरत नहीं — आप खुद आवेदन दर्ज कर सकते हैं। प्रक्रिया पूरी तरह मुफ्त है।" },
+      { en: "If children transferred your property and then neglect you, the Tribunal can revoke the transfer.", hi: "अगर बच्चों ने आपकी संपत्ति अपने नाम करवाई और फिर आपकी उपेक्षा करें, तो न्यायाधिकरण हस्तांतरण रद्द कर सकता है।" },
+      { en: "The Tribunal must decide within 90 days — this is mandated by law.", hi: "न्यायाधिकरण को 90 दिनों के भीतर फैसला करना अनिवार्य है — यह कानून द्वारा निर्धारित है।" },
+    ],
+  },
+
+  // Guide: Claim Insurance via MACT (Road Accidents)
+  {
+    id: "mact-claim",
+    title: { en: "How to Claim Insurance via MACT (Road Accidents)", hi: "MACT के माध्यम से सड़क दुर्घटना बीमा का दावा कैसे करें" },
+    description: { en: "File a claim at the Motor Accidents Claims Tribunal for compensation after a road accident.", hi: "सड़क दुर्घटना के बाद मोटर दुर्घटना दावा न्यायाधिकरण में मुआवज़े का दावा दायर करें।" },
+    category: "traffic",
+    estimatedTime: "2-4 hours",
+    estimatedCost: "Free (no court fees)",
+    icon: "Car",
+    steps: [
+      { order: 1, title: { en: "Get FIR copy from police", hi: "पुलिस से FIR की प्रति प्राप्त करें" }, description: { en: "Obtain a copy of the FIR filed for the road accident from the police station. This is essential for your claim.", hi: "पुलिस स्टेशन से सड़क दुर्घटना की FIR की प्रति प्राप्त करें। यह आपके दावे के लिए आवश्यक है।" }, documents: [{ en: "FIR copy", hi: "FIR की प्रति" }] },
+      { order: 2, title: { en: "Collect medical records and bills", hi: "मेडिकल रिकॉर्ड और बिल इकट्ठा करें" }, description: { en: "Gather all medical records, hospital bills, discharge summary, and salary proof if claiming loss of income.", hi: "सभी मेडिकल रिकॉर्ड, अस्पताल के बिल, डिस्चार्ज समरी, और आय हानि का दावा करने पर वेतन प्रमाण इकट्ठा करें।" }, documents: [{ en: "FIR copy", hi: "FIR की प्रति" }, { en: "Medical records", hi: "मेडिकल रिकॉर्ड" }, { en: "Hospital bills", hi: "अस्पताल के बिल" }, { en: "Salary proof (for income loss claim)", hi: "वेतन प्रमाण (आय हानि दावे के लिए)" }] },
+      { order: 3, title: { en: "File claim at MACT in the district where accident occurred", hi: "दुर्घटना वाले जिले के MACT में दावा दायर करें" }, description: { en: "File your claim petition at the Motor Accidents Claims Tribunal (MACT) in the district where the accident took place. No court fees are required.", hi: "जिस जिले में दुर्घटना हुई है वहां के मोटर दुर्घटना दावा न्यायाधिकरण (MACT) में अपनी दावा याचिका दायर करें। कोई कोर्ट फीस नहीं लगती।" }, where: { en: "MACT (District where accident occurred)", hi: "MACT (दुर्घटना वाला जिला)" } },
+      { order: 4, title: { en: "No court fees required", hi: "कोई कोर्ट फीस नहीं लगती" }, description: { en: "MACT claims are completely free — there are no court fees or filing charges.", hi: "MACT दावे पूरी तरह मुफ्त हैं — कोई कोर्ट फीस या फाइलिंग शुल्क नहीं है।" } },
+      { order: 5, title: { en: "Tribunal awards compensation", hi: "न्यायाधिकरण मुआवज़ा प्रदान करता है" }, description: { en: "The Tribunal evaluates your claim and awards compensation for medical costs, loss of income, pain and suffering.", hi: "न्यायाधिकरण आपके दावे का मूल्यांकन करता है और चिकित्सा खर्च, आय हानि, पीड़ा और कष्ट के लिए मुआवज़ा प्रदान करता है।" } },
+    ],
+    tips: [
+      { en: "MACT claims are free — no court fees at all.", hi: "MACT दावे मुफ्त हैं — कोई कोर्ट फीस नहीं।" },
+      { en: "Can file within 6 months of accident, but there is no strict limitation period.", hi: "दुर्घटना के 6 महीने के भीतर दावा दायर कर सकते हैं, लेकिन कोई सख्त समय सीमा नहीं है।" },
+      { en: "Hire a lawyer or use free legal aid from NALSA/DLSA.", hi: "वकील रखें या NALSA/DLSA से मुफ्त कानूनी सहायता लें।" },
+      { en: "You can claim against the insurance company even if the other driver is at fault.", hi: "आप बीमा कंपनी के खिलाफ दावा कर सकते हैं, भले ही दूसरा चालक दोषी हो।" },
     ],
   },
 ];

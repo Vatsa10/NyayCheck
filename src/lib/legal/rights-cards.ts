@@ -10,7 +10,7 @@ export interface RightsCard {
   icon: string;
 }
 
-export type RightsCategory = "all" | "rent" | "consumer" | "employment" | "family" | "cyber-fraud" | "ecommerce" | "legal" | "property" | "emergency" | "cheque-bounce" | "police-fir";
+export type RightsCategory = "all" | "rent" | "consumer" | "employment" | "family" | "cyber-fraud" | "ecommerce" | "legal" | "property" | "emergency" | "cheque-bounce" | "police-fir" | "traffic" | "senior-citizen";
 
 export const rightsCategories: { id: RightsCategory; label: BilingualText }[] = [
   { id: "all", label: { en: "All", hi: "सभी" } },
@@ -24,6 +24,8 @@ export const rightsCategories: { id: RightsCategory; label: BilingualText }[] = 
   { id: "emergency", label: { en: "Emergency", hi: "आपातकालीन" } },
   { id: "cheque-bounce", label: { en: "Cheque Bounce", hi: "चेक बाउंस" } },
   { id: "police-fir", label: { en: "Police/FIR", hi: "पुलिस/FIR" } },
+  { id: "traffic", label: { en: "Traffic", hi: "यातायात" } },
+  { id: "senior-citizen", label: { en: "Senior Citizen", hi: "वरिष्ठ नागरिक" } },
 ];
 
 export const rightsCards: RightsCard[] = [
@@ -446,5 +448,87 @@ export const rightsCards: RightsCard[] = [
       hi: "कोर्ट केस तेज़ करें:\n\n1. शीघ्र सुनवाई आवेदन दें\n2. स्थगन पर आपत्ति करें\n3. RTI से स्थिति पूछें\n4. लोक अदालत (मुफ्त, बाध्यकारी)\n5. कोर्ट रजिस्ट्री को लिखें\n\nत्वरित सुनवाई आपका हक (अनु. 21)।\n— NyayCheck",
     },
     icon: "Scale",
+  },
+
+  // 22. BNS 2023 Rights
+  {
+    id: "bns-new-laws-rights",
+    title: { en: "Your Rights Under New Criminal Laws (BNS 2023)", hi: "नई आपराधिक विधि (BNS 2023) के तहत आपके अधिकार" },
+    category: "police-fir",
+    points: [
+      { en: "FIR must be registered within 24 hours (BNSS S.173).", hi: "FIR 24 घंटे के भीतर दर्ज होनी चाहिए (BNSS धारा 173)।" },
+      { en: "Audio-visual recording of search and seizure is now mandatory.", hi: "तलाशी और ज़ब्ती की ऑडियो-वीडियो रिकॉर्डिंग अब अनिवार्य है।" },
+      { en: "Zero FIR at any police station — jurisdiction doesn't matter.", hi: "किसी भी थाने में ज़ीरो FIR — क्षेत्राधिकार मायने नहीं रखता।" },
+      { en: "Arrested person must be produced before Magistrate within 24 hours.", hi: "गिरफ्तार व्यक्ति को 24 घंटे के भीतर मजिस्ट्रेट के सामने पेश करना अनिवार्य है।" },
+      { en: "Electronic evidence (screenshots, videos) is now explicitly admissible.", hi: "इलेक्ट्रॉनिक साक्ष्य (स्क्रीनशॉट, वीडियो) अब स्पष्ट रूप से मान्य हैं।" },
+      { en: "Free copy of FIR is your right — police cannot charge for it.", hi: "FIR की मुफ्त प्रति आपका अधिकार है — पुलिस इसके लिए पैसे नहीं ले सकती।" },
+    ],
+    applicableAct: "Bharatiya Nyaya Sanhita (BNS) 2023 / BNSS 2023",
+    shareText: {
+      en: "Your Rights Under BNS 2023: FIR within 24hrs, Zero FIR anywhere, Audio-video of search mandatory, E-evidence admissible. Know your rights! — NyayCheck",
+      hi: "BNS 2023 के तहत आपके अधिकार: 24 घंटे में FIR, कहीं भी ज़ीरो FIR, तलाशी की वीडियो रिकॉर्डिंग अनिवार्य, इलेक्ट्रॉनिक सबूत मान्य। अपने अधिकार जानें! — NyayCheck",
+    },
+    icon: "Scale",
+  },
+
+  // 23. Traffic Stop Rights (2025 Rules)
+  {
+    id: "traffic-stop-rights",
+    title: { en: "What to Do During a Traffic Stop (2025 Rules)", hi: "ट्रैफिक में रोके जाने पर क्या करें (2025 नियम)" },
+    category: "traffic",
+    points: [
+      { en: "DigiLocker documents are legally valid — no need for physical copies.", hi: "DigiLocker के दस्तावेज़ कानूनी रूप से मान्य हैं — भौतिक प्रतियों की ज़रूरत नहीं।" },
+      { en: "Police must give you a receipt if they seize your vehicle or license.", hi: "पुलिस आपका वाहन या लाइसेंस ज़ब्त करे तो रसीद देना अनिवार्य है।" },
+      { en: "You have the right to know which section you are being fined under.", hi: "आपको यह जानने का अधिकार है कि किस धारा के तहत जुर्माना लगाया जा रहा है।" },
+      { en: "Traffic police cannot demand cash — insist on official e-challan.", hi: "ट्रैफिक पुलिस नकद नहीं मांग सकती — आधिकारिक ई-चालान पर ज़ोर दें।" },
+      { en: "You can record the interaction on video — it's your right.", hi: "आप बातचीत का वीडियो रिकॉर्ड कर सकते हैं — यह आपका अधिकार है।" },
+      { en: "If harassed, note badge number and report to Traffic DCP or CVC 1031.", hi: "परेशान किए जाएं तो बैज नंबर नोट करें और ट्रैफिक DCP या CVC 1031 पर शिकायत करें।" },
+    ],
+    applicableAct: "Motor Vehicles (Amendment) Act, 2019",
+    shareText: {
+      en: "Traffic Stop Rights: DigiLocker valid, demand e-challan (not cash), record on video, note badge number. No bribe! — NyayCheck",
+      hi: "ट्रैफिक स्टॉप अधिकार: DigiLocker मान्य, ई-चालान मांगें (नकद नहीं), वीडियो रिकॉर्ड करें, बैज नंबर नोट करें। रिश्वत नहीं! — NyayCheck",
+    },
+    icon: "Car",
+  },
+
+  // 24. Senior Citizens Maintenance & Respect
+  {
+    id: "senior-maintenance-rights",
+    title: { en: "Senior Citizens: Your Right to Maintenance & Respect", hi: "वरिष्ठ नागरिक: भरण-पोषण और सम्मान का आपका अधिकार" },
+    category: "senior-citizen",
+    points: [
+      { en: "Children MUST maintain parents unable to support themselves.", hi: "बच्चों को उन माता-पिता का भरण-पोषण करना अनिवार्य है जो खुद का ख्याल नहीं रख सकते।" },
+      { en: "Tribunal can order up to ₹10,000/month maintenance.", hi: "न्यायाधिकरण ₹10,000/माह तक भरण-पोषण का आदेश दे सकता है।" },
+      { en: "If you transferred property and are neglected, transfer can be revoked.", hi: "अगर आपने संपत्ति हस्तांतरित की और आपकी उपेक्षा हो रही है, तो हस्तांतरण रद्द हो सकता है।" },
+      { en: "Elder abuse is a criminal offence — file FIR.", hi: "बुज़ुर्गों के साथ दुर्व्यवहार अपराध है — FIR दर्ज करें।" },
+      { en: "Call Elder Line 14567 for help (8am-8pm).", hi: "मदद के लिए एल्डर लाइन 14567 पर कॉल करें (सुबह 8 से रात 8 बजे तक)।" },
+    ],
+    applicableAct: "Maintenance and Welfare of Parents and Senior Citizens Act, 2007",
+    shareText: {
+      en: "Senior Citizens Rights: Children must maintain parents, up to ₹10K/month via Tribunal, property transfer revocable if neglected. Elder Line: 14567 — NyayCheck",
+      hi: "वरिष्ठ नागरिक अधिकार: बच्चों को माता-पिता का भरण-पोषण करना अनिवार्य, न्यायाधिकरण से ₹10K/माह, उपेक्षा पर संपत्ति हस्तांतरण रद्द। एल्डर लाइन: 14567 — NyayCheck",
+    },
+    icon: "UserRound",
+  },
+
+  // 25. Ayushman Bharat 70+
+  {
+    id: "ayushman-70-plus",
+    title: { en: "Ayushman Bharat 70+: Free Health Coverage for Seniors", hi: "आयुष्मान भारत 70+: वरिष्ठ नागरिकों के लिए मुफ्त स्वास्थ्य कवरेज" },
+    category: "senior-citizen",
+    points: [
+      { en: "ALL citizens aged 70+ get ₹5 lakh/year free health coverage.", hi: "70+ वर्ष के सभी नागरिकों को ₹5 लाख/वर्ष का मुफ्त स्वास्थ्य कवरेज मिलता है।" },
+      { en: "No income criteria — available to everyone above 70.", hi: "कोई आय शर्त नहीं — 70 से ऊपर सभी के लिए उपलब्ध।" },
+      { en: "Covers hospitalization at 29,000+ empaneled hospitals.", hi: "29,000+ सूचीबद्ध अस्पतालों में भर्ती का खर्च कवर होता है।" },
+      { en: "Includes pre-existing conditions from day one.", hi: "पहले दिन से पहले से मौजूद बीमारियां भी कवर हैं।" },
+      { en: "Register at mera.pmjay.gov.in with Aadhaar card.", hi: "mera.pmjay.gov.in पर आधार कार्ड से पंजीकरण करें।" },
+    ],
+    applicableAct: "Ayushman Bharat PM-JAY 70+ Extension (2025)",
+    shareText: {
+      en: "Ayushman 70+: Free ₹5 lakh health cover for ALL seniors above 70. No income limit. Register at mera.pmjay.gov.in — NyayCheck",
+      hi: "आयुष्मान 70+: 70 से ऊपर सभी बुज़ुर्गों को ₹5 लाख का मुफ्त स्वास्थ्य कवर। कोई आय सीमा नहीं। mera.pmjay.gov.in पर पंजीकरण करें — NyayCheck",
+    },
+    icon: "HeartPulse",
   },
 ];
