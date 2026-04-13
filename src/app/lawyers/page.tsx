@@ -26,12 +26,12 @@ interface LawyerResult {
   name: string;
   specialization: string;
   location: string;
+  phone?: string;
+  address?: string;
   experience?: string;
-  contact?: string;
   rating?: string;
   sourceUrl: string;
   sourceName: string;
-  snippet: string;
 }
 
 interface SearchSource {
@@ -333,7 +333,7 @@ export default function LawyersPage() {
                     <CardContent className="py-4">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-sm">
+                          <h3 className="font-semibold text-[15px]">
                             {lawyer.name}
                           </h3>
                           {lawyer.specialization && (
@@ -342,58 +342,74 @@ export default function LawyersPage() {
                               {lawyer.specialization}
                             </p>
                           )}
-                          {lawyer.location && (
-                            <p className="text-xs text-muted mt-0.5">
-                              <MapPin className="w-3 h-3 inline mr-1" />
-                              {lawyer.location}
-                            </p>
-                          )}
-                          {lawyer.experience && (
-                            <p className="text-xs text-muted mt-0.5">
-                              {lawyer.experience}
-                            </p>
-                          )}
-                          {lawyer.rating && (
-                            <p className="text-xs text-amber-600 mt-0.5">
-                              <Star className="w-3 h-3 inline mr-1" />
-                              {lawyer.rating}
-                            </p>
-                          )}
                         </div>
                         <Badge variant="default">{lawyer.sourceName}</Badge>
                       </div>
 
-                      {lawyer.snippet && (
-                        <p className="text-xs text-muted mt-2 line-clamp-2">
-                          {lawyer.snippet}
-                        </p>
-                      )}
+                      <div className="mt-2.5 space-y-1">
+                        {lawyer.phone && (
+                          <a
+                            href={`tel:${lawyer.phone.replace(/\s/g, "")}`}
+                            className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
+                          >
+                            <Phone className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+                            <span>{lawyer.phone}</span>
+                          </a>
+                        )}
+                        {lawyer.address && (
+                          <p className="flex items-start gap-2 text-xs text-muted">
+                            <MapPin className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                            <span>{lawyer.address}</span>
+                          </p>
+                        )}
+                        {!lawyer.address && lawyer.location && (
+                          <p className="flex items-center gap-2 text-xs text-muted">
+                            <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                            <span>{lawyer.location}</span>
+                          </p>
+                        )}
+                        {(lawyer.experience || lawyer.rating) && (
+                          <div className="flex items-center gap-3 text-xs text-muted">
+                            {lawyer.experience && (
+                              <span>{lawyer.experience}</span>
+                            )}
+                            {lawyer.rating && (
+                              <span className="text-amber-600">
+                                <Star className="w-3 h-3 inline mr-0.5" />
+                                {lawyer.rating}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
 
                       <div className="flex gap-2 mt-3">
+                        {lawyer.phone ? (
+                          <a
+                            href={`tel:${lawyer.phone.replace(/\s/g, "")}`}
+                            className="flex-1"
+                          >
+                            <Button variant="primary" size="sm" className="w-full">
+                              <Phone className="w-3.5 h-3.5" />
+                              {language === "hi" ? "कॉल करें" : "Call"}
+                            </Button>
+                          </a>
+                        ) : null}
                         <a
                           href={lawyer.sourceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1"
+                          className={lawyer.phone ? "" : "flex-1"}
                         >
                           <Button
                             variant="outline"
                             size="sm"
-                            className="w-full"
+                            className={lawyer.phone ? "" : "w-full"}
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
-                            {language === "hi"
-                              ? "प्रोफ़ाइल देखें"
-                              : "View Profile"}
+                            {language === "hi" ? "प्रोफ़ाइल" : "Profile"}
                           </Button>
                         </a>
-                        {lawyer.contact && (
-                          <a href={`tel:${lawyer.contact}`}>
-                            <Button variant="primary" size="sm">
-                              <Phone className="w-3.5 h-3.5" />
-                            </Button>
-                          </a>
-                        )}
                       </div>
                     </CardContent>
                   </Card>
