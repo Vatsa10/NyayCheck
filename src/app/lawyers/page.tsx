@@ -47,6 +47,7 @@ const CASE_TYPES = [
   { value: "employment", en: "Employment & Labour", hi: "रोज़गार और श्रम" },
   { value: "family", en: "Family & Divorce", hi: "परिवार और तलाक" },
   { value: "cyber-fraud", en: "Cyber Crime", hi: "साइबर अपराध" },
+  { value: "other", en: "Other / General", hi: "अन्य / सामान्य" },
 ];
 
 const BUDGET_OPTIONS = [
@@ -59,6 +60,7 @@ const BUDGET_OPTIONS = [
 export default function LawyersPage() {
   const language = useLanguage((s) => s.language);
   const [caseType, setCaseType] = useState("");
+  const [customCaseType, setCustomCaseType] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [budget, setBudget] = useState("");
@@ -103,6 +105,7 @@ export default function LawyersPage() {
 
   async function handleSearch() {
     if (!caseType) return;
+    if (caseType === "other" && !customCaseType.trim()) return;
     setLoading(true);
     setSearched(true);
     setLawyers([]);
@@ -113,7 +116,8 @@ export default function LawyersPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          caseType,
+          caseType: caseType === "other" ? "other" : caseType,
+          customCaseType: caseType === "other" ? customCaseType.trim() : undefined,
           city,
           state,
           budget,
@@ -183,8 +187,24 @@ export default function LawyersPage() {
                   label: language === "hi" ? ct.hi : ct.en,
                 }))}
                 value={caseType}
-                onChange={setCaseType}
+                onChange={(v) => {
+                  setCaseType(v);
+                  if (v !== "other") setCustomCaseType("");
+                }}
               />
+              {caseType === "other" && (
+                <input
+                  type="text"
+                  value={customCaseType}
+                  onChange={(e) => setCustomCaseType(e.target.value)}
+                  placeholder={
+                    language === "hi"
+                      ? "अपना केस प्रकार लिखें... जैसे चेक बाउंस, बीमा विवाद"
+                      : "Describe your case... e.g. cheque bounce, insurance dispute"
+                  }
+                  className="w-full mt-3 p-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm"
+                />
+              )}
             </div>
 
             {/* Location */}

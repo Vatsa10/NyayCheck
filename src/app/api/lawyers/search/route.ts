@@ -28,12 +28,14 @@ const CATEGORY_TO_SEARCH: Record<string, string[]> = {
   family: ["family divorce custody maintenance", "matrimonial domestic violence"],
   ecommerce: ["consumer protection ecommerce", "IT Act cyber consumer"],
   "cyber-fraud": ["cyber crime IT Act", "cyber fraud online scam"],
+  other: ["lawyer advocate general practice", "legal consultant"],
 };
 
 export async function POST(request: NextRequest) {
   try {
     const {
       caseType = "consumer",
+      customCaseType = "",
       location = "",
       city = "",
       state = "",
@@ -44,8 +46,12 @@ export async function POST(request: NextRequest) {
     // Build the location string
     const locationStr = city || location || state || "India";
 
-    // Build targeted search queries (like the Python agent's dynamic approach)
-    const searchTerms = CATEGORY_TO_SEARCH[caseType] || ["legal"];
+    // For "other" with custom input, use the user's description directly as search terms
+    const isCustom = caseType === "other" && customCaseType;
+    const searchTerms = isCustom
+      ? [customCaseType, `${customCaseType} legal`]
+      : CATEGORY_TO_SEARCH[caseType] || ["legal"];
+
     const queries: string[] = [];
 
     // Primary queries: lawyer directories and legal platforms
@@ -55,12 +61,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Platform-specific queries for fact-grounded results
-    queries.push(`site:lawrato.com lawyer ${searchTerms[0]} ${locationStr}`);
-    queries.push(`site:vakkilsearch.com advocate ${locationStr} ${searchTerms[0]}`);
+    const platformTerm = isCustom ? customCaseType : searchTerms[0];
+    queries.push(`site:lawrato.com lawyer ${platformTerm} ${locationStr}`);
+    queries.push(`site:vakkilsearch.com advocate ${locationStr} ${platformTerm}`);
 
     // Budget-aware query
     if (budget) {
-      queries.push(`affordable lawyer ${searchTerms[0]} ${locationStr} fees ${budget}`);
+      queries.push(`affordable lawyer ${platformTerm} ${locationStr} fees ${budget}`);
     }
 
     // Run all searches in parallel (max 6 queries)

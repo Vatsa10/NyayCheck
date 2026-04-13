@@ -24,6 +24,7 @@ import {
   BookOpen,
   MapPin,
   UserCheck,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
@@ -64,27 +65,41 @@ export default function LandingPage() {
               <Search className="w-3.5 h-3.5" />
               {language === "hi" ? "सवाल पूछें" : "Ask"}
             </Link>
-            <Link
-              href="/schemes"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200"
-            >
-              <Landmark className="w-3.5 h-3.5" />
-              {language === "hi" ? "योजनाएं" : "Schemes"}
-            </Link>
-            <Link
-              href="/cases"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200"
-            >
-              <Gavel className="w-3.5 h-3.5" />
-              {language === "hi" ? "मुकदमे" : "Cases"}
-            </Link>
-            <Link
-              href="/lawyers"
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200"
-            >
-              <Users className="w-3.5 h-3.5" />
-              {language === "hi" ? "वकील" : "Lawyers"}
-            </Link>
+
+            {/* Tools dropdown */}
+            <div className="hidden sm:block relative group">
+              <button className="flex items-center gap-1 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200">
+                {language === "hi" ? "उपकरण" : "Tools"}
+                <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" />
+              </button>
+              <div className="absolute right-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-200">
+                <div className="w-56 bg-white rounded-xl border border-gray-100 shadow-lg shadow-gray-200/50 py-1.5 overflow-hidden">
+                  {[
+                    { href: "/helplines", icon: Phone, label: language === "hi" ? "हेल्पलाइन" : "Helplines", desc: language === "hi" ? "112, 181, 1930" : "112, 181, 1930" },
+                    { href: "/rights", icon: ShieldCheck, label: language === "hi" ? "अधिकार कार्ड" : "Know Your Rights", desc: language === "hi" ? "शेयर करें" : "Shareable cards" },
+                    { href: "/guides", icon: BookOpen, label: language === "hi" ? "प्रक्रिया गाइड" : "Legal Guides", desc: language === "hi" ? "FIR, RTI, शिकायत" : "FIR, RTI, complaint" },
+                    { href: "/templates", icon: FileText, label: language === "hi" ? "टेम्पलेट" : "Templates", desc: language === "hi" ? "किराया, नोटिस, RTI" : "Rent, notice, RTI" },
+                    { href: "/schemes", icon: Landmark, label: language === "hi" ? "सरकारी योजनाएं" : "Gov Schemes", desc: language === "hi" ? "5,000+ योजनाएं" : "5,000+ schemes" },
+                    { href: "/lawyers", icon: UserCheck, label: language === "hi" ? "वकील खोजें" : "Find a Lawyer", desc: language === "hi" ? "वेब खोज से" : "From web search" },
+                    { href: "/cases", icon: Gavel, label: language === "hi" ? "केस ट्रैकर" : "Case Tracker", desc: language === "hi" ? "सुनवाई ट्रैक करें" : "Track hearings" },
+                    { href: "/nearby", icon: MapPin, label: language === "hi" ? "नज़दीकी सहायता" : "Nearby Help", desc: language === "hi" ? "DLSA, पुलिस, कोर्ट" : "DLSA, police, court" },
+                  ].map(({ href, icon: Icon, label, desc }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="flex items-center gap-3 px-3.5 py-2 hover:bg-gray-50 transition-colors duration-150"
+                    >
+                      <Icon className="w-4 h-4 text-muted flex-shrink-0" />
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium leading-tight">{label}</p>
+                        <p className="text-[11px] text-muted leading-tight">{desc}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <LanguageToggle />
             <Link href="/check">
               <Button size="sm">

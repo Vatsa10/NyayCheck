@@ -31,6 +31,7 @@ interface ConversationTurn {
   query: string;
   answer: string;
   results: SearchResult[];
+  source?: "knowledge_base" | "web";
 }
 
 const SUGGESTED_QUESTIONS = {
@@ -105,6 +106,7 @@ export default function AskPage() {
           query: q,
           answer: data.answer || "",
           results: data.results || [],
+          source: data.source || "knowledge_base",
         },
       ]);
     } catch {
@@ -231,6 +233,14 @@ export default function AskPage() {
                   <div className="flex-1 max-w-[85%]">
                     <Card>
                       <CardContent className="py-3">
+                        {turn.source === "web" && (
+                          <div className="flex items-center gap-1 mb-2">
+                            <Search className="w-3 h-3 text-blue-500" />
+                            <span className="text-[10px] font-medium text-blue-500">
+                              {language === "hi" ? "वेब खोज से" : "From web search"}
+                            </span>
+                          </div>
+                        )}
                         <p className="text-sm leading-relaxed whitespace-pre-line">
                           {turn.answer}
                         </p>
