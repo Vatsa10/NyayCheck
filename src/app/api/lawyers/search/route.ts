@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { multiSearch, type SearchResult } from "@/lib/search/web-search";
-import {
-  getOpenAI,
-  getModel,
-  canMakeLLMRequest,
-  recordLLMRequest,
-} from "@/lib/llm/client";
+import { multiSearch } from "@/lib/search/web-search";
 
 export interface LawyerResult {
   name: string;
@@ -52,26 +46,18 @@ export async function POST(request: NextRequest) {
       ? [customCaseType, `${customCaseType} legal`]
       : CATEGORY_TO_SEARCH[caseType] || ["legal"];
 
-    const queries: string[] = [];
+    // Build 3 focused queries (down from 6 — each DDG fetch takes 2-4s)
+    const primaryTerm = isCustom ? customCaseType : searchTerms[0];
+    const queries = [
+      `lawyer ${primaryTerm} ${locationStr} India contact reviews`,
+      `advocate ${primaryTerm} near ${locationStr} lawrato vakkilsearch`,
+      budget
+        ? `affordable lawyer ${primaryTerm} ${locationStr} fees`
+        : `best ${primaryTerm} lawyer ${locationStr}`,
+    ];
 
-    // Primary queries: lawyer directories and legal platforms
-    for (const term of searchTerms.slice(0, 2)) {
-      queries.push(`best lawyer ${term} ${locationStr} India contact`);
-      queries.push(`advocate ${term} near ${locationStr} reviews`);
-    }
-
-    // Platform-specific queries for fact-grounded results
-    const platformTerm = isCustom ? customCaseType : searchTerms[0];
-    queries.push(`site:lawrato.com lawyer ${platformTerm} ${locationStr}`);
-    queries.push(`site:vakkilsearch.com advocate ${locationStr} ${platformTerm}`);
-
-    // Budget-aware query
-    if (budget) {
-      queries.push(`affordable lawyer ${platformTerm} ${locationStr} fees ${budget}`);
-    }
-
-    // Run all searches in parallel (max 6 queries)
-    const rawResults = await multiSearch(queries.slice(0, 6), 5);
+    // Run all 3 in parallel with 10s total timeout
+    const rawResults = await multiSearch(queries, 6, 10_000);
 
     if (rawResults.length === 0) {
       return NextResponse.json({
@@ -98,22 +84,12 @@ export async function POST(request: NextRequest) {
       );
     });
 
-    // Try LLM structuring (optional — if rate limit allows)
-    let structuredLawyers: LawyerResult[] = [];
-
-    if (relevant.length > 0 && canMakeLLMRequest()) {
-      structuredLawyers = await structureWithLLM(
-        relevant.slice(0, 10),
-        caseType,
-        locationStr,
-        language
-      );
-    }
-
-    // If LLM failed or rate limited, do rule-based extraction
-    if (structuredLawyers.length === 0) {
-      structuredLawyers = extractLawyersRuleBased(relevant.slice(0, 10), locationStr);
-    }
+    // Rule-based extraction only — no LLM call, instant results
+    const structuredLawyers = extractLawyersRuleBased(
+      relevant.slice(0, 10),
+      locationStr,
+      primaryTerm
+    );
 
     return NextResponse.json({
       lawyers: structuredLawyers.slice(0, 8),
@@ -134,88 +110,49 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * Use LLM to structure raw search results into lawyer profiles.
- * The LLM ONLY extracts from the provided data — never generates.
- */
-async function structureWithLLM(
-  results: SearchResult[],
-  caseType: string,
-  location: string,
-  language: string
-): Promise<LawyerResult[]> {
-  const resultsText = results
-    .map(
-      (r, i) =>
-        `[${i + 1}] ${r.title}\nURL: ${r.url}\nSource: ${r.source}\nSnippet: ${r.snippet}`
-    )
-    .join("\n\n");
-
-  try {
-    recordLLMRequest();
-    const response = await getOpenAI().chat.completions.create({
-      model: getModel(),
-      messages: [
-        {
-          role: "system",
-          content: `You extract lawyer information from search results. You MUST ONLY use information present in the search results — NEVER invent names, numbers, or details. If a field is not found, use null. Return JSON array only.`,
-        },
-        {
-          role: "user",
-          content: `Extract lawyer profiles from these search results for "${caseType}" lawyers near "${location}".
-
-Search Results:
-${resultsText}
-
-Return a JSON array (max 8 entries):
-[{"name":"actual name from results or null","specialization":"from results","location":"from results","experience":"if mentioned","contact":"phone/email if found","rating":"if mentioned","sourceUrl":"actual URL","sourceName":"domain","snippet":"relevant excerpt from snippet"}]
-
-CRITICAL: Only extract what IS in the search results. No fabrication. If unsure, use null.`,
-        },
-      ],
-      temperature: 0.1, // Very low — extraction, not generation
-      max_tokens: 800,
-    });
-
-    const content = response.choices[0]?.message?.content || "";
-    const jsonStr = content
-      .replace(/```json?\n?/g, "")
-      .replace(/```/g, "")
-      .trim();
-    return JSON.parse(jsonStr);
-  } catch (error) {
-    console.error("LLM structuring failed:", error);
-    return [];
-  }
-}
-
-/**
- * Rule-based extraction when LLM is not available.
- * Extracts what we can from titles and snippets directly.
+ * Rule-based extraction — fast, no LLM call.
+ * Extracts lawyer info from titles and snippets using regex patterns.
  */
 function extractLawyersRuleBased(
-  results: SearchResult[],
-  location: string
+  results: { title: string; url: string; snippet: string; source: string }[],
+  location: string,
+  specialization: string
 ): LawyerResult[] {
   return results.map((r) => {
-    // Try to extract a name from the title
-    // Common patterns: "Adv. Name - Specialization" or "Name | Lawyer in City"
+    const text = `${r.title} ${r.snippet}`;
+
+    // Extract name from title patterns
     let name: string | null = null;
     const namePatterns = [
-      /^(?:Adv\.?|Advocate|Dr\.?)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3})/,
-      /^([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3})\s*[-|–]/,
+      /(?:Adv\.?|Advocate|Dr\.?|Atty\.?)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3})/,
+      /^([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3})\s*[-|–,]/,
+      /(?:Lawyer|Attorney)\s*[-:]\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3})/i,
     ];
     for (const pat of namePatterns) {
       const m = r.title.match(pat);
-      if (m) {
-        name = m[1].trim();
-        break;
-      }
+      if (m) { name = m[1].trim(); break; }
     }
 
+    // Extract experience ("X years", "X+ years")
+    const expMatch = text.match(/(\d+)\+?\s*(?:years?|yrs?)\s*(?:of\s+)?(?:experience|exp)?/i);
+    const experience = expMatch ? `${expMatch[1]}+ years experience` : undefined;
+
+    // Extract rating ("4.5/5", "4.8 stars", "rated 4.7")
+    const ratingMatch = text.match(/(\d\.\d)\s*(?:\/\s*5|stars?|rating)/i)
+      || text.match(/rated\s+(\d\.\d)/i);
+    const rating = ratingMatch ? `${ratingMatch[1]}/5` : undefined;
+
+    // Extract phone (Indian: 10 digits, or +91)
+    const phoneMatch = text.match(/(?:\+91[-\s]?)?[6-9]\d{9}/);
+    const contact = phoneMatch ? phoneMatch[0] : undefined;
+
     return {
-      name: name || r.title.slice(0, 60),
-      specialization: "",
+      name: name || r.title.slice(0, 60).replace(/\s*[-|].*$/, ""),
+      specialization,
       location,
+      experience,
+      contact,
+      rating,
       sourceUrl: r.url,
       sourceName: r.source,
       snippet: r.snippet.slice(0, 200),

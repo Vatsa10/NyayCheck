@@ -50,15 +50,25 @@ async function searchDDGHtml(
   maxResults: number
 ): Promise<SearchResult[]> {
   const url = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
-  const resp = await fetch(url, {
-    headers: HEADERS,
-    redirect: "follow",
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 6000); // 6s hard timeout per query
 
-  if (!resp.ok) throw new Error(`DDG HTML returned ${resp.status}`);
-  const html = await resp.text();
+  try {
+    const resp = await fetch(url, {
+      headers: HEADERS,
+      redirect: "follow",
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
 
-  return parseDDGHtml(html, maxResults);
+    if (!resp.ok) throw new Error(`DDG HTML returned ${resp.status}`);
+    const html = await resp.text();
+
+    return parseDDGHtml(html, maxResults);
+  } catch (e) {
+    clearTimeout(timeout);
+    throw e;
+  }
 }
 
 function parseDDGHtml(html: string, maxResults: number): SearchResult[] {
@@ -145,21 +155,18 @@ async function searchDDGApi(
 }
 
 /**
- * Run multiple search queries in parallel and deduplicate results.
+ * Run multiple search queries in parallel with a total timeout.
+ * Returns whatever results we have when the timeout hits — doesn't wait for stragglers.
  */
 export async function multiSearch(
   queries: string[],
-  maxPerQuery: number = 5
+  maxPerQuery: number = 5,
+  totalTimeoutMs: number = 10_000 // 10s total for all queries
 ): Promise<SearchResult[]> {
-  const allResults = await Promise.all(
-    queries.map((q) => webSearch(q, maxPerQuery))
-  );
-
-  // Deduplicate by URL
   const seen = new Set<string>();
   const deduped: SearchResult[] = [];
 
-  for (const results of allResults) {
+  function addResults(results: SearchResult[]) {
     for (const r of results) {
       const normalized = r.url.replace(/\/+$/, "").toLowerCase();
       if (!seen.has(normalized)) {
@@ -168,6 +175,29 @@ export async function multiSearch(
       }
     }
   }
+
+  // Race all queries against a timeout
+  const queryPromises = queries.map((q) =>
+    webSearch(q, maxPerQuery).catch(() => [] as SearchResult[])
+  );
+
+  const timeout = new Promise<"timeout">((resolve) =>
+    setTimeout(() => resolve("timeout"), totalTimeoutMs)
+  );
+
+  // Use Promise.allSettled racing against the timeout
+  // But also collect results as each query finishes
+  const wrappedPromises = queryPromises.map((p) =>
+    p.then((results) => {
+      addResults(results);
+      return results;
+    })
+  );
+
+  await Promise.race([
+    Promise.all(wrappedPromises),
+    timeout,
+  ]);
 
   return deduped;
 }
