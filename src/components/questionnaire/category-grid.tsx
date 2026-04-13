@@ -25,6 +25,8 @@ const iconMap: Record<string, React.ElementType> = {
   Heart,
   ShoppingCart,
   Shield,
+  Banknote,
+  Siren,
 };
 
 function CategoryCard({ category }: { category: CategoryDefinition }) {

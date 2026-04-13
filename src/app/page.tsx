@@ -28,6 +28,8 @@ import {
   ChevronDown,
   Menu,
   X,
+  Banknote,
+  Siren,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
@@ -42,6 +44,8 @@ const iconMap: Record<string, React.ElementType> = {
   Heart,
   ShoppingCart,
   Shield,
+  Banknote,
+  Siren,
 };
 
 export default function LandingPage() {

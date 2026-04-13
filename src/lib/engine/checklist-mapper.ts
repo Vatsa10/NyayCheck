@@ -425,6 +425,115 @@ const checklistDefinitions: Record<string, ChecklistDefinition> = {
     applicableAct: "IT Act, 2000 Section 66C/66D",
     documentType: null,
   },
+
+  // ── Cheque Bounce ──
+  cb_send_notice: {
+    title: { en: "Send cheque bounce notice under S.138", hi: "धारा 138 के तहत चेक बाउंस नोटिस भेजें" },
+    description: { en: "You must send a legal notice via registered post within 30 days of the cheque bouncing. The drawer gets 15 days to pay after receiving the notice.", hi: "चेक बाउंस होने के 30 दिनों के भीतर पंजीकृत डाक से कानूनी नोटिस भेजना अनिवार्य है। नोटिस मिलने के बाद जारीकर्ता को 15 दिन का समय मिलता है।" },
+    urgency: "high",
+    applicableAct: "Negotiable Instruments Act, 1881 Section 138",
+    documentType: "legal_notice",
+  },
+  cb_send_notice_urgent: {
+    title: { en: "URGENT: Send S.138 notice immediately", hi: "तुरंत: धारा 138 नोटिस अभी भेजें" },
+    description: { en: "Your 30-day deadline is running out! Send the notice via registered post TODAY. Without this notice, you cannot file a criminal case.", hi: "आपकी 30 दिन की समय सीमा समाप्त हो रही है! आज ही पंजीकृत डाक से नोटिस भेजें।" },
+    urgency: "high",
+    applicableAct: "Negotiable Instruments Act, 1881 Section 138",
+    documentType: "legal_notice",
+  },
+  cb_pay_immediately: {
+    title: { en: "Pay the cheque amount immediately", hi: "चेक की राशि तुरंत भुगतान करें" },
+    description: { en: "If you issued a cheque that bounced, pay the amount within 15 days of receiving the notice to avoid criminal prosecution under S.138 NI Act.", hi: "यदि आपका चेक बाउंस हुआ है, तो नोटिस मिलने के 15 दिनों के भीतर राशि भुगतान करें अन्यथा आपराधिक कार्यवाही होगी।" },
+    urgency: "high",
+    applicableAct: "Negotiable Instruments Act, 1881 Section 138",
+    documentType: null,
+  },
+  cb_deadline_missed: {
+    title: { en: "30-day notice deadline may have passed", hi: "30 दिन की नोटिस समय सीमा बीत चुकी हो सकती है" },
+    description: { en: "If more than 30 days have passed since the cheque bounced, you may have lost the right to file under S.138. Consult a lawyer for alternative civil remedies.", hi: "यदि चेक बाउंस के 30 दिन से ज़्यादा बीत गए हैं, तो S.138 के तहत दायर करने का अधिकार खो सकते हैं। वकील से सलाह लें।" },
+    urgency: "high",
+    applicableAct: "Negotiable Instruments Act, 1881 Section 138",
+    documentType: null,
+  },
+  cb_get_return_memo: {
+    title: { en: "Get the bank return memo", hi: "बैंक रिटर्न मेमो प्राप्त करें" },
+    description: { en: "The bank's return memo (cheque bounce slip) is essential evidence for your case. Visit your bank and request a copy.", hi: "बैंक का रिटर्न मेमो (चेक बाउंस स्लिप) आपके केस के लिए आवश्यक साक्ष्य है। बैंक जाकर प्रति मांगें।" },
+    urgency: "medium",
+    applicableAct: "Negotiable Instruments Act, 1881",
+    documentType: null,
+  },
+
+  // ── Police / FIR ──
+  pf_complain_sp: {
+    title: { en: "Complain to SP/DCP in writing", hi: "SP/DCP को लिखित शिकायत करें" },
+    description: { en: "Send a detailed written complaint to the Superintendent of Police or Deputy Commissioner of Police via registered post. They have the authority to direct the police station to register FIR.", hi: "पुलिस अधीक्षक या उप पुलिस आयुक्त को पंजीकृत डाक से विस्तृत लिखित शिकायत भेजें। उन्हें FIR दर्ज करने का आदेश देने का अधिकार है।" },
+    urgency: "high",
+    applicableAct: "CrPC Section 154 / BNSS Section 173",
+    documentType: "legal_notice",
+  },
+  pf_magistrate_156: {
+    title: { en: "Approach Magistrate under S.156(3) CrPC", hi: "CrPC धारा 156(3) के तहत मजिस्ट्रेट से संपर्क करें" },
+    description: { en: "If police and SP both refuse, file a complaint to the Judicial Magistrate. The Magistrate can direct police to register FIR and investigate.", hi: "यदि पुलिस और SP दोनों मना करें, तो न्यायिक मजिस्ट्रेट को शिकायत दर्ज करें। मजिस्ट्रेट पुलिस को FIR दर्ज करने और जांच करने का आदेश दे सकता है।" },
+    urgency: "high",
+    applicableAct: "CrPC Section 156(3) / BNSS Section 175(3)",
+    documentType: "complaint",
+  },
+  pf_rti_status: {
+    title: { en: "File RTI to check investigation status", hi: "जांच स्थिति जानने के लिए RTI दर्ज करें" },
+    description: { en: "File an RTI application to the police department asking for the status of your FIR and investigation. This creates a paper trail and pressure.", hi: "अपनी FIR और जांच की स्थिति पूछने के लिए पुलिस विभाग में RTI आवेदन दर्ज करें।" },
+    urgency: "medium",
+    applicableAct: "Right to Information Act, 2005",
+    documentType: "application",
+  },
+  pf_quash_fir: {
+    title: { en: "Apply to quash the false FIR", hi: "झूठी FIR रद्द करने के लिए आवेदन करें" },
+    description: { en: "If a false FIR is filed against you, approach the High Court under Section 482 CrPC to quash it. Consult a criminal lawyer immediately.", hi: "यदि आपके खिलाफ झूठी FIR दर्ज है, तो CrPC धारा 482 के तहत उच्च न्यायालय में रद्द करने का आवेदन करें।" },
+    urgency: "high",
+    applicableAct: "CrPC Section 482 / BNSS Section 528",
+    documentType: null,
+  },
+  pf_get_lawyer: {
+    title: { en: "Get a criminal lawyer immediately", hi: "तुरंत एक आपराधिक वकील लें" },
+    description: { en: "For false FIR cases, you need professional legal representation. Apply for free legal aid at NALSA if you cannot afford a lawyer.", hi: "झूठी FIR के मामलों में पेशेवर कानूनी प्रतिनिधित्व ज़रूरी है। यदि वकील का खर्च नहीं उठा सकते तो NALSA में मुफ्त सहायता लें।" },
+    urgency: "high",
+    applicableAct: "Legal Services Authorities Act, 1987",
+    documentType: null,
+  },
+  pf_anti_corruption: {
+    title: { en: "File anti-corruption complaint", hi: "भ्रष्टाचार विरोधी शिकायत दर्ज करें" },
+    description: { en: "If police are demanding money, file a complaint with the Anti-Corruption Bureau (ACB) or CVC. Call 1031 for the Central Vigilance Commission.", hi: "यदि पुलिस पैसे मांग रही है, तो भ्रष्टाचार निरोधक ब्यूरो (ACB) या CVC में शिकायत दर्ज करें। CVC के लिए 1031 पर कॉल करें।" },
+    urgency: "high",
+    applicableAct: "Prevention of Corruption Act, 1988",
+    documentType: null,
+  },
+  pf_go_to_station: {
+    title: { en: "Visit the police station in person", hi: "पुलिस स्टेशन व्यक्तिगत रूप से जाएं" },
+    description: { en: "Go to the police station and submit your complaint in writing. Ask for a receiving stamp/copy as proof of submission.", hi: "पुलिस स्टेशन जाएं और लिखित शिकायत दें। जमा करने के प्रमाण के रूप में रसीद/प्रति मांगें।" },
+    urgency: "medium",
+    applicableAct: "CrPC Section 154",
+    documentType: null,
+  },
+  pf_written_complaint: {
+    title: { en: "Submit written complaint with receipt", hi: "रसीद के साथ लिखित शिकायत दें" },
+    description: { en: "Always submit complaints in writing and get a receiving copy. Oral complaints can be denied later. The receiving copy is your proof.", hi: "हमेशा लिखित शिकायत दें और रसीद लें। मौखिक शिकायतों से बाद में इनकार किया जा सकता है।" },
+    urgency: "medium",
+    applicableAct: "CrPC Section 154",
+    documentType: null,
+  },
+  pf_fir_mandatory: {
+    title: { en: "Police MUST file FIR for cognizable offences", hi: "संज्ञेय अपराधों के लिए पुलिस को FIR दर्ज करना अनिवार्य है" },
+    description: { en: "For cognizable offences (theft, assault, fraud, etc.), filing FIR is mandatory. Refusal is a punishable offence under S.166A IPC. You can complain to SP or Magistrate.", hi: "संज्ञेय अपराधों के लिए FIR दर्ज करना अनिवार्य है। इनकार S.166A IPC के तहत दंडनीय अपराध है।" },
+    urgency: "high",
+    applicableAct: "CrPC Section 154 / IPC Section 166A",
+    documentType: null,
+  },
+  pf_zero_fir: {
+    title: { en: "You can file Zero FIR at any police station", hi: "किसी भी पुलिस स्टेशन में ज़ीरो FIR दर्ज कर सकते हैं" },
+    description: { en: "Under Zero FIR provision, any police station must accept your FIR regardless of jurisdiction. It will be transferred to the correct station later.", hi: "ज़ीरो FIR प्रावधान के तहत कोई भी पुलिस स्टेशन क्षेत्राधिकार की परवाह किए बिना FIR स्वीकार करेगा।" },
+    urgency: "medium",
+    applicableAct: "CrPC / BNSS Zero FIR Provision",
+    documentType: null,
+  },
 };
 
 export function mapFlagsToChecklist(flags: string[]): ChecklistItem[] {
