@@ -23,6 +23,7 @@ import {
   ShieldCheck,
   BookOpen,
   MapPin,
+  UserCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
@@ -76,6 +77,13 @@ export default function LandingPage() {
             >
               <Gavel className="w-3.5 h-3.5" />
               {language === "hi" ? "मुकदमे" : "Cases"}
+            </Link>
+            <Link
+              href="/lawyers"
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted hover:text-foreground transition-colors duration-200"
+            >
+              <Users className="w-3.5 h-3.5" />
+              {language === "hi" ? "वकील" : "Lawyers"}
             </Link>
             <LanguageToggle />
             <Link href="/check">
@@ -333,6 +341,13 @@ export default function LandingPage() {
                 title: language === "hi" ? "सरकारी योजनाएं" : "Gov Schemes",
                 desc: language === "hi" ? "5,000+ योजनाएं खोजें" : "Find 5,000+ schemes",
                 color: "bg-cyan-500",
+              },
+              {
+                href: "/lawyers",
+                icon: UserCheck,
+                title: language === "hi" ? "वकील खोजें" : "Find a Lawyer",
+                desc: language === "hi" ? "वेब से सत्यापित वकील खोजें" : "Real lawyers from web search",
+                color: "bg-blue-500",
               },
               {
                 href: "/nearby",
